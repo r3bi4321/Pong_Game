@@ -1,0 +1,61 @@
+﻿<Window x:Class="Pong_Game.Endpage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pong_Game"
+        mc:Ignorable="d"
+        Title="Endpage" Height="450" Width="800">
+    <Grid>
+        <Canvas x:Name="endPage" Background="Black">
+            <Button x:Name="playAgain" 
+                    Width="140" 
+                    Height="50" 
+                    Background="DarkRed" 
+                    Content="Play again" 
+                    FontFamily="Arial" 
+                    Foreground="White" 
+                    FontSize="25" 
+                    BorderThickness="4" 
+                    BorderBrush="Goldenrod" 
+                    Canvas.Left="243" 
+                    Canvas.Top="305" Click="OpenStartWindow"/>
+            <Button x:Name="endGame" 
+                    Width="140" 
+                    Height="50" 
+                    Background="Darkred" 
+                    Content="End Game" 
+                    FontFamily="Arial" 
+                    Foreground="white" 
+                    FontSize="25"  
+                    BorderThickness="4" 
+                    BorderBrush="Goldenrod" 
+                    Canvas.Left="416" 
+                    Canvas.Top="305" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top"/>
+            <Button x:Name="goToStore" 
+                    Width="90" 
+                    Height="40" 
+                    Background="DarkRed" 
+                    Foreground="White"
+                    Content="Store" 
+                    FontFamily="Arial" 
+                    FontSize="20" 
+                    HorizontalAlignment="Left" 
+                    Canvas.Left="710" 
+                    VerticalAlignment="Center" 
+                    Canvas.Top="50"/>
+            <Button x:Name="Settings" 
+                    Width="90" 
+                    Height="40" 
+                    Background="DarkRed"
+                    Content="Settings"
+                    FontSize="20" 
+                    Foreground="White" 
+                    Canvas.Top="0" 
+                    Canvas.Right="0" HorizontalAlignment="Center" Canvas.Left="710" VerticalAlignment="Center" />
+        </Canvas>
+
+    </Grid>
+</Window>
