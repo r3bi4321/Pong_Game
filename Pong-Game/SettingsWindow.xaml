@@ -8,7 +8,14 @@
         Title="SettingsWindow" Height="450" Width="800">
     <Grid>
         <Canvas x:Name="windowSetting" Background="Black">
-            <Button x:Name="BackToStart" Width="100" Height="35" Content="Back to the Start" Background="DarkRed" Foreground="White" FontFamily="Arial"/>
+            <Button x:Name="BackToStart" 
+                    Width="100" 
+                    Height="35" 
+                    Content="Back to the Start" 
+                    Background="DarkRed" 
+                    Foreground="White" 
+                    FontFamily="Arial" 
+                    Click="BackToStart_Click"/>
 
         </Canvas>
     </Grid>

@@ -1,0 +1,20 @@
+﻿<Window x:Class="Pong_Game.SinglePlayer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pong_Game"
+        mc:Ignorable="d"
+        Title="SinglePlayer" Height="450" Width="800">
+    <Grid>
+        <Canvas x:Name="SinglePlayerWindow" Background="Black">
+            <Rectangle x:Name="Player1" Width="20" Height="100" Fill="LightSkyBlue" Canvas.Left="0"/>
+            <Rectangle x:Name="Bot" Width="20" Height="100" Fill="LightSkyBlue" Canvas.Right="0"/>
+            <Ellipse x:Name="GameBall" Width="30" Height="30" Fill="LightGreen"/>
+            <TextBlock x:Name="ScorePlayer1" Width="30" Height="30" Background="HotPink" Text="0" Canvas.Left="20" Canvas.Top="0" TextAlignment="Center" FontFamily="Arial" FontSize="30"/>
+            <TextBlock x:Name="ScoreBot" Width="30" Height="30" Background="HotPink" Text="0" Canvas.Right="20" Canvas.Top="0" TextAlignment="Center" FontFamily="Arial" FontSize="30"/>
+            <TextBlock x:Name="CoinCount1" Width="25" Height="25" Background="#FFFBFB7D" Canvas.Bottom="5" Canvas.Left="20" Text="0" FontSize="25" FontFamily="Arial" TextAlignment="Center" />
+            
+        </Canvas>
+    </Grid>
+</Window>

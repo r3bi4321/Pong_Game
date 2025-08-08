@@ -14,35 +14,66 @@
                        TextAlignment="Center" 
                        FontSize="70" 
                        Foreground="DarkRed" 
-                       Canvas.Top="60"/>
-            <Button x:Name="PlayButton"
+                      />
+            <Button x:Name="twoPlayerButton"
                     Background="DarkRed" 
-                    Content="Play" 
+                    Content="Multi-Player" 
                     Foreground="White" 
-                    FontSize="40" 
+                    FontSize="23" 
                     FontFamily="Arial"
                      Width="160"
                     Click="OpenWindow"/>
-            <TextBlock x:Name="enterPoints" 
-                       Width="60" 
-                       Height="20"
-                       Canvas.Left="320"
-                       Canvas.Top="217" 
+            <Button x:Name="singlePlayerButton" 
+                    Background="DarkRed" 
+                    Foreground="White" 
+                    Width="160"               
+                    Content="Single Player" 
+                    FontFamily="Arial" 
+                    FontSize="23" 
+                    Click="OpensinglePlayerWindow"/>
+            <TextBox x:Name="enterPoints" 
+                       Width="160" 
+                       Height="20" 
                        Background="DarkRed"
                        HorizontalAlignment="Left" 
-                       VerticalAlignment="Center"/>
-            <ComboBox x:Name="chooseBallSpeed" 
-                      Width="60" 
-                      Height="20"
-                      Canvas.Left="400"
-                      Canvas.Top="217" 
-                      Background="DarkRed" 
-                      SelectionChanged="chooseBallSpeed_SelectionChanged">
-                <ComboBoxItem>1f</ComboBoxItem>
-                <ComboBoxItem>1.5f</ComboBoxItem>
-                <ComboBoxItem>2f</ComboBoxItem>
-            </ComboBox>
-            <Button x:Name="Settings" Content="Settings" Height="40" Width="90" Background="DarkRed" FontSize="20" Foreground="White" Canvas.Top="0" Canvas.Right="0" Click="OpenSettingWindow"/>
+                       VerticalAlignment="Center"
+                       Text="Enter Needed Points"
+                       Foreground="White"
+                     FontFamily="Arial"
+                     />
+            <TextBox x:Name="speedBall" 
+                     Width="160" 
+                     Height="20" 
+                     Background="DarkRed" 
+                     Text="Enter Ballspeed" 
+                     Foreground="white" 
+                     HorizontalAlignment="Left" 
+                     VerticalAlignment="Center"/>
+            <Button x:Name="Settings" 
+                    Content="Settings"
+                    Height="40"
+                    Width="90" 
+                    Background="DarkRed" 
+                    FontSize="20" 
+                    Foreground="White" 
+                    Canvas.Top="0" 
+                    Canvas.Right="0"
+                    Click="OpenSettingWindow"/>
+
+            <Button x:Name="goToStore"
+                    Width="90"
+                    Height="40" 
+                    Canvas.Right="0" 
+                    Canvas.Top="50" 
+                    Background="DarkRed" 
+                    Foreground="White" 
+                    Content="Store" 
+                    FontFamily="Arial" 
+                    FontSize="20" 
+                    HorizontalAlignment="Left" 
+                    Canvas.Left="710" 
+                    VerticalAlignment="Center"
+                    Click="OpenWindowStore"/>
         </Canvas>
     </Grid>
 </Window>

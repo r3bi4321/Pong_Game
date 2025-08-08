@@ -14,19 +14,20 @@ using System.Windows.Shapes;
 
 namespace Pong_Game
 {
-
-    public partial class SettingsWindow : Window
+    /// <summary>
+    /// Interaction logic for Endpage.xaml
+    /// </summary>
+    public partial class Endpage : Window
     {
-        public SettingsWindow()
+        public Endpage()
         {
             InitializeComponent();
         }
 
-        private void BackToStart_Click(object sender, RoutedEventArgs e)
+        private void OpenStartWindow(object sender, RoutedEventArgs e)
         {
-            Startseite Startpage = new();
+            Startseite startWindow = new();
             this.Visibility = Visibility.Hidden;
-            Startpage.Show();
         }
     }
 }
