@@ -17,12 +17,14 @@ namespace Pong_Game
         private float SpeedY1;
         private float SpeedY2;
         private readonly float Friction = 0.6f;
-        private readonly float Speed;
-        private double ballSpeedX = 4;
-        private double ballSpeedY = 4;
+        private float Speed = 1.5f;
+        private double ballSpeedX;
+        private double ballSpeedY;
+        private readonly double startSpeed;
         private bool gameGoing = false;
         private int scorePlayer1 = 0;
         private int scorePlayer2 = 0;
+        private readonly int pointsNeeded;
         private bool coinCollected = false;
         private readonly Random rnd = new();
         private readonly DispatcherTimer coinSpawn;
@@ -30,22 +32,22 @@ namespace Pong_Game
         private int coinCount1;
         private int coinCount2;
         private int lastTouchedBy = 0;
-        private readonly int gameMode = 2;
 
-        public MainWindow(float speed)
+        public MainWindow(int startSpeedValue, int pointsToWin)
         {
             InitializeComponent();
-            Speed = speed;
+
+            startSpeed = startSpeedValue;
+            pointsNeeded = pointsToWin;
+
+            ballSpeedX = startSpeed;
+            ballSpeedY = startSpeed;
 
             gameTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(14)
             };
-
-            if (gameMode == 2)
-                gameTimer.Tick += GameTick2;
-            else
-                gameTimer.Tick += GameTick1;
+            gameTimer.Tick += GameTick;
 
             coinSpawn = new DispatcherTimer
             {
@@ -80,7 +82,7 @@ namespace Pong_Game
             if (e.Key == Key.Down) DownArrowPressed = false;
         }
 
-        private void GameTick1(object sender, EventArgs e)
+        private void GameTick(object sender, EventArgs e)
         {
             if (!gameGoing)
             {
@@ -89,55 +91,20 @@ namespace Pong_Game
                 return;
             }
 
+            // Player 1 Movement
             if (UpKeyPressed) SpeedY1 -= Speed;
             if (DownkeyPressed) SpeedY1 += Speed;
             SpeedY1 *= Friction;
 
-            double newY1 = Canvas.GetTop(Player1) + SpeedY1;
-            newY1 = Math.Clamp((double)(Canvas.GetTop(Player1) + SpeedY1), 0, GameScreen.ActualHeight - Player1.Height);
-            Canvas.SetTop(Player1, (double)(Canvas.GetTop(Player1) + SpeedY1));
-
-            // Bot-Bewegung mit Vorhersage
-            double botTargetY = PredictBallImpactY();
-            double currentBotY = Canvas.GetTop(Player2) + Player2.Height / 2;
-            double botDiff = botTargetY - currentBotY;
-
-            double maxBotSpeed = 8;
-            botDiff = Math.Clamp(botDiff, -maxBotSpeed, maxBotSpeed);
-
-            SpeedY2 = (float)botDiff;
-            SpeedY2 *= Friction;
-
-            double newY2 = Canvas.GetTop(Player2) + SpeedY2;
-            newY2 = Math.Clamp(newY2, 0, GameScreen.ActualHeight - Player2.Height);
-            Canvas.SetTop(Player2, newY2);
-
-            BallAndCoinUpdate();
-        }
-
-        private void GameTick2(object sender, EventArgs e)
-        {
-            if (!gameGoing)
-            {
-                gameTimer.Stop();
-                ResetGame();
-                return;
-            }
-
-            if (UpKeyPressed) SpeedY1 -= Speed;
-            if (DownkeyPressed) SpeedY1 += Speed;
-            SpeedY1 *= Friction;
-
-            double newY1 = Canvas.GetTop(Player1) + SpeedY1;
-            newY1 = Math.Clamp(newY1, 0, GameScreen.ActualHeight - Player1.Height);
+            double newY1 = Math.Clamp(Canvas.GetTop(Player1) + SpeedY1, 0, GameScreen.ActualHeight - Player1.Height);
             Canvas.SetTop(Player1, newY1);
 
+            // Player 2 Movement
             if (UpArrowPressed) SpeedY2 -= Speed;
             if (DownArrowPressed) SpeedY2 += Speed;
             SpeedY2 *= Friction;
 
-            double newY2 = Canvas.GetTop(Player2) + SpeedY2;
-            newY2 = Math.Clamp(newY2, 0, GameScreen.ActualHeight - Player2.Height);
+            double newY2 = Math.Clamp(Canvas.GetTop(Player2) + SpeedY2, 0, GameScreen.ActualHeight - Player2.Height);
             Canvas.SetTop(Player2, newY2);
 
             BallAndCoinUpdate();
@@ -148,11 +115,9 @@ namespace Pong_Game
             double nextBallX = Canvas.GetLeft(GameBall) + ballSpeedX;
             double nextBallY = Canvas.GetTop(GameBall) + ballSpeedY;
 
-            
             if (nextBallY <= 0 || nextBallY >= GameScreen.ActualHeight - GameBall.Height)
                 ballSpeedY = -ballSpeedY;
 
-            
             for (int i = activeCoins.Count - 1; i >= 0; i--)
             {
                 Rectangle coin = activeCoins[i];
@@ -178,11 +143,17 @@ namespace Pong_Game
                 }
             }
 
-            // Punktestand & Spielende prüfen
             if (nextBallX >= GameScreen.ActualWidth - GameBall.Width)
             {
                 scorePlayer1++;
                 UpdateScoreboard();
+
+                if (scorePlayer1 >= pointsNeeded)
+                {
+                    EndGame(1);
+                    return;
+                }
+
                 gameGoing = false;
                 return;
             }
@@ -191,11 +162,17 @@ namespace Pong_Game
             {
                 scorePlayer2++;
                 UpdateScoreboard();
+
+                if (scorePlayer2 >= pointsNeeded)
+                {
+                    EndGame(2);
+                    return;
+                }
+
                 gameGoing = false;
                 return;
             }
 
-            
             double p1Right = Canvas.GetLeft(Player1) + Player1.Width;
             if (nextBallX <= p1Right)
             {
@@ -206,12 +183,10 @@ namespace Pong_Game
                 {
                     ballSpeedX = Math.Abs(ballSpeedX);
                     lastTouchedBy = 1;
-
                     nextBallX = p1Right + 1;
                 }
             }
 
-          
             double p2Left = Canvas.GetLeft(Player2);
             if (nextBallX + GameBall.Width >= p2Left)
             {
@@ -222,14 +197,22 @@ namespace Pong_Game
                 {
                     ballSpeedX = -Math.Abs(ballSpeedX);
                     lastTouchedBy = 2;
-
-                    
                     nextBallX = p2Left - GameBall.Width - 1;
                 }
             }
 
             Canvas.SetLeft(GameBall, nextBallX);
             Canvas.SetTop(GameBall, nextBallY);
+        }
+
+        private void EndGame(int winningPlayer)
+        {
+            gameTimer.Stop();
+            gameGoing = false;
+            this.Visibility = Visibility.Hidden;
+
+            Endpage endPage = new();
+            endPage.Show();
         }
 
         private void ResetGame()
@@ -242,13 +225,12 @@ namespace Pong_Game
             Canvas.SetLeft(GameBall, (GameScreen.ActualWidth - GameBall.Width) / 2);
             Canvas.SetTop(GameBall, (GameScreen.ActualHeight - GameBall.Height) / 2);
 
-            ballSpeedX = 4;
-            ballSpeedY = 4;
+            ballSpeedX = startSpeed;
+            ballSpeedY = startSpeed;
             SpeedY1 = 0;
             SpeedY2 = 0;
             gameGoing = false;
         }
-
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -293,30 +275,6 @@ namespace Pong_Game
         {
             ScorePlayer1.Text = scorePlayer1.ToString();
             ScorePlayer2.Text = scorePlayer2.ToString();
-        }
-
-        private double PredictBallImpactY()
-        {
-            double ballX = Canvas.GetLeft(GameBall);
-            double ballY = Canvas.GetTop(GameBall);
-            double speedX = ballSpeedX;
-            double speedY = ballSpeedY;
-
-            double ballWidth = GameBall.Width;
-            double paddleX = Canvas.GetLeft(Player2);
-
-            while (ballX + ballWidth < paddleX)
-            {
-                ballX += speedX;
-                ballY += speedY;
-
-                if (ballY <= 0 || ballY >= GameScreen.ActualHeight - GameBall.Height)
-                {
-                    speedY = -speedY;
-                }
-            }
-
-            return ballY + GameBall.Height / 2 + rnd.Next(-10, 10);
         }
     }
 }

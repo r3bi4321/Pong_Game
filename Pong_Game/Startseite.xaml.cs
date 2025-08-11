@@ -1,11 +1,13 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Pong_Game
 {
     public partial class Startseite : Window
     {
-        private readonly float selectedSpeed = 4;
+        private int selectedSpeed;
+        private int pointsNeeded;
 
         public Startseite()
         {
@@ -73,9 +75,19 @@ namespace Pong_Game
 
         private void OpenWindow(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new(selectedSpeed);
-            this.Visibility = Visibility.Hidden;
-            mainWindow.Show();
+            try
+            {
+                selectedSpeed = int.Parse(speedBall.Text);
+                pointsNeeded = int.Parse(enterPoints.Text);
+
+                MainWindow mainWindow = new(selectedSpeed, pointsNeeded);
+                this.Visibility = Visibility.Hidden;
+                mainWindow.Show();
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Bitte gültige Zahlen eingeben!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void OpenSettingWindow(object sender, RoutedEventArgs e)

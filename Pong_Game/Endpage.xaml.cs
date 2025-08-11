@@ -19,15 +19,43 @@ namespace Pong_Game
     /// </summary>
     public partial class Endpage : Window
     {
+        private int winningPlayer;
+
         public Endpage()
         {
             InitializeComponent();
         }
 
+        public Endpage(int winningPlayer)
+        {
+            this.winningPlayer = winningPlayer;
+            
+        }
+
         private void OpenStartWindow(object sender, RoutedEventArgs e)
         {
             Startseite startWindow = new();
-            this.Visibility = Visibility.Hidden;
+            this.Hide();
+            startWindow.Show();
+        }
+
+        private void endGame_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void goToStore_Click(object sender, RoutedEventArgs e)
+        {
+            StoreWindow storeWindow = new();
+            storeWindow.Show();
+            this.Hide();
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settingsWindow = new();   
+            settingsWindow.Show();
+            this.Hide();
         }
     }
 }

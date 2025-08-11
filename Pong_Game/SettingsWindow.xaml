@@ -15,6 +15,8 @@
                     Background="DarkRed" 
                     Foreground="White" 
                     FontFamily="Arial" 
+                    BorderThickness="2" 
+                    BorderBrush="Goldenrod"
                     Click="BackToStart_Click"/>
 
             <Rectangle x:Name="rectangleBackground" 
@@ -52,14 +54,6 @@
                     Background="Goldenrod"
                     Canvas.Left="418" 
                     Canvas.Top="208"/>
-            <Slider x:Name="darkOrLightMode"
-                    Width="30" 
-                    Height="20" 
-                    Canvas.Left="418"
-                    Canvas.Top="271" 
-                    Minimum="0"
-                    Maximum="1" 
-                    Background="Goldenrod"/>
             <TextBlock x:Name="txtBallSize"
                        Text="Ballsize"
                        Background="#FF191919"
@@ -85,10 +79,16 @@
                        FontFamily="Arial" 
                        Canvas.Left="242" 
                        Canvas.Top="274" />
-            <Ellipse x:Name="ball1" Fill=" red" Height="30" Width="30" Canvas.Left="70" Canvas.Top="312"/>
-            <Ellipse x:Name="ball2" Fill="Orange" Height="30" Width="30" Canvas.Left="85" Canvas.Top="225"/>
-            <Ellipse x:Name="ball3" Fill=" red" Height="30" Width="30" Canvas.Left="670" Canvas.Top="149"/>
-            <Ellipse x:Name="ball4" Fill=" red" Height="30" Width="30" Canvas.Left="655" Canvas.Top="297" />
+            <Button x:Name="darkMode" 
+                    Height="20" 
+                    Width="140" 
+                    Canvas.Left="418" 
+                    Canvas.Top="271" 
+                    Content="on" 
+                    Background="Goldenrod" 
+                    FontFamily="Arial" 
+                    FontSize="15" Click="changeBackground"/>
+
         </Canvas>
     </Grid>
 </Window>

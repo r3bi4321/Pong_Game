@@ -54,7 +54,6 @@ namespace Pong_Game
         {
             if (e.Key == Key.W) UpKeyPressed = true;
             if (e.Key == Key.S) DownKeyPressed = true;
-
             if (e.Key == Key.Space && !gameGoing)
             {
                 gameGoing = true;
@@ -77,7 +76,6 @@ namespace Pong_Game
                 return;
             }
 
-            // Spielerbewegung
             if (UpKeyPressed) SpeedY1 -= Speed;
             if (DownKeyPressed) SpeedY1 += Speed;
             SpeedY1 *= Friction;
@@ -86,7 +84,7 @@ namespace Pong_Game
             newY1 = Math.Clamp(newY1, 0, SinglePlayerWindow.ActualHeight - Player1.Height);
             Canvas.SetTop(Player1, newY1);
 
-            // Bot-Bewegung (Vorhersage)
+            
             double botTargetY = PredictBallImpactY();
             double currentBotY = Canvas.GetTop(Bot) + Bot.Height / 2;
             double botDiff = botTargetY - currentBotY;

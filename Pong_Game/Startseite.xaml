@@ -13,8 +13,7 @@
                        FontFamily="Arial" 
                        TextAlignment="Center" 
                        FontSize="70" 
-                       Foreground="DarkRed" 
-                      />
+                       Foreground="DarkRed" />
             <Button x:Name="twoPlayerButton"
                     Background="DarkRed" 
                     Content="Multi-Player" 
@@ -22,7 +21,9 @@
                     FontSize="23" 
                     FontFamily="Arial"
                      Width="160"
-                    Click="OpenWindow"/>
+                    Click="OpenWindow"
+                    BorderThickness="2" 
+                    BorderBrush="Goldenrod" />
             <Button x:Name="singlePlayerButton" 
                     Background="DarkRed" 
                     Foreground="White" 
@@ -30,7 +31,9 @@
                     Content="Single Player" 
                     FontFamily="Arial" 
                     FontSize="23" 
-                    Click="OpensinglePlayerWindow"/>
+                    Click="OpensinglePlayerWindow"
+                    BorderThickness="2" 
+                    BorderBrush="Goldenrod" />
             <TextBox x:Name="enterPoints" 
                        Width="160" 
                        Height="20" 
@@ -39,8 +42,7 @@
                        VerticalAlignment="Center"
                        Text="Enter Needed Points"
                        Foreground="White"
-                     FontFamily="Arial"
-                     />
+                     FontFamily="Arial" />
             <TextBox x:Name="speedBall" 
                      Width="160" 
                      Height="20" 
@@ -58,8 +60,9 @@
                     Foreground="White" 
                     Canvas.Top="0" 
                     Canvas.Right="0"
+                    BorderThickness="2" 
+                    BorderBrush="Goldenrod"
                     Click="OpenSettingWindow"/>
-
             <Button x:Name="goToStore"
                     Width="90"
                     Height="40" 
@@ -73,7 +76,14 @@
                     HorizontalAlignment="Left" 
                     Canvas.Left="710" 
                     VerticalAlignment="Center"
+                    BorderThickness="2" 
+                    BorderBrush="Goldenrod"
                     Click="OpenWindowStore"/>
+
+            <Ellipse x:Name="Ball1" Fill="DarkViolet" Height="40" Width="40" Canvas.Left="50" Canvas.Top="243"/>
+            <Ellipse x:Name="Ball2" Fill="DarkViolet" Height="40" Width="40" Canvas.Left="683" Canvas.Top="155" />
+            <Ellipse x:Name="Ball3" Fill="DarkViolet" Height="40" Width="40" Canvas.Left="624" Canvas.Top="299"/>
+            <Ellipse x:Name="Ball4" Fill="DarkViolet" Height="40" Width="40" Canvas.Left="266" Canvas.Top="337"/>
         </Canvas>
     </Grid>
 </Window>

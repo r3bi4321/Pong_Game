@@ -19,7 +19,8 @@
                     BorderThickness="4" 
                     BorderBrush="Goldenrod" 
                     Canvas.Left="243" 
-                    Canvas.Top="305" Click="OpenStartWindow"/>
+                    Canvas.Top="305"
+                    Click="OpenStartWindow"/>
             <Button x:Name="endGame" 
                     Width="140" 
                     Height="50" 
@@ -33,7 +34,7 @@
                     Canvas.Left="416" 
                     Canvas.Top="305" 
                     HorizontalAlignment="Left" 
-                    VerticalAlignment="Top"/>
+                    VerticalAlignment="Top" Click="endGame_Click"/>
             <Button x:Name="goToStore" 
                     Width="90" 
                     Height="40" 
@@ -45,7 +46,9 @@
                     HorizontalAlignment="Left" 
                     Canvas.Left="710" 
                     VerticalAlignment="Center" 
-                    Canvas.Top="50"/>
+                    Canvas.Top="50"
+                    BorderThickness="2" 
+                    BorderBrush="Goldenrod" Click="goToStore_Click"/>
             <Button x:Name="Settings" 
                     Width="90" 
                     Height="40" 
@@ -54,8 +57,12 @@
                     FontSize="20" 
                     Foreground="White" 
                     Canvas.Top="0" 
-                    Canvas.Right="0" HorizontalAlignment="Center" Canvas.Left="710" VerticalAlignment="Center" />
+                    Canvas.Right="0" 
+                    HorizontalAlignment="Center" 
+                    Canvas.Left="710" 
+                    VerticalAlignment="Center"
+                    BorderThickness="2" 
+                    BorderBrush="Goldenrod" Click="Settings_Click"/>
         </Canvas>
-
     </Grid>
 </Window>

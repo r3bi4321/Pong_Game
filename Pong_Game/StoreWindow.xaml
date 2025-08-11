@@ -9,6 +9,14 @@
     <Grid>
         <Canvas x:Name="Store" Background="Black">
 
+            <Rectangle x:Name="background" 
+                       Height="350" 
+                       Width="702" 
+                       Fill="White" 
+                       Opacity="0.1"
+                       Canvas.Left="49"
+                       Canvas.Top="49" />
+
             <Button x:Name="backToStart" 
                     Width="100" 
                     Height="35" 
@@ -18,6 +26,7 @@
                     FontSize="11" 
                     Foreground="White" 
                     Click="OpenStartWindow" />
+
             <TextBlock x:Name="coinCountDisplay" 
                        Background="DarkRed" 
                        Foreground="White" 
@@ -29,7 +38,151 @@
                        TextAlignment="Center" 
                        FontFamily="Arial"/>
 
-        </Canvas>
+            <TextBlock x:Name="titlePaddle" 
+                       Text="Paddles" 
+                       Background="DarkRed"
+                       Foreground="White" 
+                       Width="130"
+                       Height="40" 
+                       FontFamily="Arial" 
+                       FontSize="35" 
+                       Canvas.Left="129" 
+                       Canvas.Top="49" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"/>
 
+            <TextBlock x:Name="titleBalls" 
+                       Text="Gameballs"
+                       Background="DarkRed" 
+                       Foreground="White" 
+                       FontFamily="Arial" 
+                       Width="171" 
+                       Height="40" 
+                       FontSize="35"
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center" 
+                       Canvas.Left="501" 
+                       Canvas.Top="49"/>
+
+            <TextBlock x:Name="titleShape" 
+                       Text="Shapes" 
+                       Background="DarkRed" 
+                       Foreground="White" 
+                       Canvas.Left="102" 
+                       Canvas.Top="116" 
+                       Width="54" 
+                       FontFamily="Arial" 
+                       Height="20" 
+                       FontSize="15" 
+                       RenderTransformOrigin="-0.075,0.502" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"/>
+
+            <TextBlock x:Name="titleColour" 
+                       Text="Colour" 
+                       Background="DarkRed" 
+                       Foreground="White" 
+                       FontFamily="Arial" 
+                       FontSize="15" 
+                       Canvas.Left="242" 
+                       Canvas.Top="116" 
+                       Height="20" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"/>
+
+            <ScrollViewer Canvas.Left="50" Canvas.Top="116" Height="285" Width="701"
+              VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Center" VerticalAlignment="Top">
+
+                <Grid Background="Transparent" Margin="0" Height="284" Width="696">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="120"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="1" Grid.Row="0"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="1" Grid.Row="1"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="1" Grid.Row="2"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="1" Grid.Row="3"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="1" Grid.Row="4"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="1" Grid.Row="5"/>
+
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="3" Grid.Row="0"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="3" Grid.Row="1"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="3" Grid.Row="2"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="3" Grid.Row="3"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="3" Grid.Row="4"/>
+
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="5" Grid.Row="0"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="5" Grid.Row="1"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="5" Grid.Row="2"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="5" Grid.Row="3"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="5" Grid.Row="4"/>
+
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="7" Grid.Row="0"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="7" Grid.Row="1"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="7" Grid.Row="2"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="7" Grid.Row="3"/>
+                    <Rectangle Fill="White" Opacity="0.1" Margin="5,5,5,5" Grid.Column="7" Grid.Row="4"/>
+
+                    <Ellipse Fill="DarkBlue" Width="30" Height="30" Grid.Column="5" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                    <Ellipse Fill="Red" Width="30" Height="30"  Grid.Column="7" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                    <Ellipse Fill="ForestGreen" Width="30" Height="30" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                    <Ellipse Fill="MediumVioletRed" Width="30" Height="30" Grid.Column="7" Grid.Row="1" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                    <Ellipse Fill="SkyBlue" Width="30" Height="30" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                    <Ellipse Fill="DarkOrange" Width="30" Height="30" Grid.Column="7" Grid.Row="2" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                    <Ellipse Fill="Coral" Width="30" Height="30" Grid.Column="5" Grid.Row="3" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                    <Ellipse Fill="Aqua" Width="30" Height="30" Grid.Column="7" Grid.Row="3" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                    <Ellipse Fill="Silver" Width="30" Height="30" Grid.Column="5" Grid.Row="4" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                    <Ellipse Fill="gold" Width="30" Height="30" Grid.Column="7" Grid.Row="4" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+
+                    <Rectangle Fill="DeepPink" Width="10" Height="40" Grid.Column="1" HorizontalAlignment="left" Margin="20,0,0,0"/>
+                    <Rectangle Fill="Indigo" Width="10" Height="40" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+                    <Rectangle Fill="Blue" Width="10" Height="40" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+                    <Rectangle Fill="LightGreen" Width="10" Height="40" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+                    <Rectangle Fill="Olive" Width="10" Height="40" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+                    <Rectangle Fill="RosyBrown" Width="10" Height="40" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+                    <Rectangle Fill="SandyBrown" Width="10" Height="40" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+                    <Rectangle Fill="PaleVioletRed" Width="10" Height="40" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Left" Margin="20,0,0,0" />
+                    <Rectangle Fill="IndianRed" Width="10" Height="40" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+                    <Rectangle Fill="DarkOrchid" Width="10" Height="40" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+
+                    <TextBlock Text="20 Coins" Foreground="White" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="40 Coins" Foreground="White" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="60 Coins" Foreground="White" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="80 Coins" Foreground="White" Grid.Column="3" Grid.Row="1" HorizontalAlignment="right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="100 Coins" Foreground="White" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="120 Coins" Foreground="White" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="140 Coins" Foreground="White" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="160 Coins" Foreground="white" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="180 Coins" Foreground="white" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="200 Coins" Foreground="white" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+
+                    <TextBlock Text="20 Coins" Foreground="White" Grid.Column="5" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="40 Coins" Foreground="White" Grid.Column="7" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="60 Coins" Foreground="White" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="80 Coins" Foreground="White" Grid.Column="7" Grid.Row="1" HorizontalAlignment="right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="100 Coins" Foreground="White" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="120 Coins" Foreground="White" Grid.Column="7" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="140 Coins" Foreground="White" Grid.Column="5" Grid.Row="3" HorizontalAlignment="Left" Margin="44,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Width="71"/>
+                    <TextBlock Text="160 Coins" Foreground="white" Grid.Column="7" Grid.Row="3" HorizontalAlignment="Left" Margin="44,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="180 Coins" Foreground="white" Grid.Column="5" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <TextBlock Text="200 Coins" Foreground="white" Grid.Column="7" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                </Grid>
+            </ScrollViewer>
+        </Canvas>
     </Grid>
 </Window>

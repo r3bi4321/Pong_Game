@@ -30,7 +30,7 @@
             <Rectangle x:Name="Player1"
                        Width="20" 
                        Height="100"
-                       Fill="BlueViolet"
+                       Fill="HotPink"
                        Canvas.Left="0" 
                        Canvas.Top="200"/>
 

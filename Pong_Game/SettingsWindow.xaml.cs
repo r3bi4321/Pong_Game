@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace Pong_Game
 
     public partial class SettingsWindow : Window
     {
+
         public SettingsWindow()
         {
             InitializeComponent();
@@ -27,6 +29,11 @@ namespace Pong_Game
             Startseite Startpage = new();
             this.Visibility = Visibility.Hidden;
             Startpage.Show();
+        }
+
+        private void changeBackground(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
