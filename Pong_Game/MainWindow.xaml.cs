@@ -23,7 +23,7 @@ namespace Pong_Game
         private readonly double startSpeed;
         private bool gameGoing = false;
         private int scorePlayer1 = 0;
-        private int scorePlayer2 = 0;
+        private int scoreBot = 0;
         private readonly int pointsNeeded;
         private bool coinCollected = false;
         private readonly Random rnd = new();
@@ -91,7 +91,7 @@ namespace Pong_Game
                 return;
             }
 
-            // Player 1 Movement
+            
             if (UpKeyPressed) SpeedY1 -= Speed;
             if (DownkeyPressed) SpeedY1 += Speed;
             SpeedY1 *= Friction;
@@ -99,7 +99,7 @@ namespace Pong_Game
             double newY1 = Math.Clamp(Canvas.GetTop(Player1) + SpeedY1, 0, GameScreen.ActualHeight - Player1.Height);
             Canvas.SetTop(Player1, newY1);
 
-            // Player 2 Movement
+            
             if (UpArrowPressed) SpeedY2 -= Speed;
             if (DownArrowPressed) SpeedY2 += Speed;
             SpeedY2 *= Friction;
@@ -160,10 +160,10 @@ namespace Pong_Game
 
             if (nextBallX <= 0)
             {
-                scorePlayer2++;
+                scoreBot++;
                 UpdateScoreboard();
 
-                if (scorePlayer2 >= pointsNeeded)
+                if (scoreBot >= pointsNeeded)
                 {
                     EndGame(2);
                     return;
@@ -232,15 +232,15 @@ namespace Pong_Game
             gameGoing = false;
         }
 
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+       private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             double rightPos = GameScreen.ActualWidth - Player2.Width;
             if (rightPos < 0) rightPos = 0;
             Canvas.SetLeft(Player2, rightPos);
 
-            double scoreRightPos = GameScreen.ActualWidth - ScorePlayer2.Width - 40;
+            double scoreRightPos = GameScreen.ActualWidth - ScoreBot.Width - 40;
             if (scoreRightPos < 0) scoreRightPos = 0;
-            Canvas.SetLeft(ScorePlayer2, scoreRightPos);
+            Canvas.SetLeft(ScoreBot, scoreRightPos);
 
             double centerX = (GameScreen.ActualWidth - GameBall.Width) / 2;
             double centerY = (GameScreen.ActualHeight - GameBall.Height) / 2;
@@ -250,7 +250,7 @@ namespace Pong_Game
             double coins2 = GameScreen.ActualWidth - CoinCount2.Width - 40;
             if (coins2 < 0) coins2 = 0;
             Canvas.SetLeft(CoinCount2, coins2);
-        }
+        } 
 
         private void SpawnCoin(object sender, EventArgs e)
         {
@@ -274,7 +274,7 @@ namespace Pong_Game
         private void UpdateScoreboard()
         {
             ScorePlayer1.Text = scorePlayer1.ToString();
-            ScorePlayer2.Text = scorePlayer2.ToString();
+            ScoreBot.Text = scoreBot.ToString();
         }
     }
 }

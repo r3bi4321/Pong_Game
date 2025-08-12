@@ -8,6 +8,8 @@ namespace Pong_Game
     {
         private int selectedSpeed;
         private int pointsNeeded;
+        private double ballSpeedX;
+        private double ballSpeedY;
 
         public Startseite()
         {
@@ -32,7 +34,7 @@ namespace Pong_Game
 
             double spacing = elementHeight * 1.5;
             Title.FontSize = width / 12;
-            double titleX = (width - Title.ActualWidth) / 2;
+            double titleX = (width - Title.ActualWidth) / 2.5;
             Canvas.SetLeft(Title, titleX);
             Canvas.SetTop(Title, height * 0.1);
 

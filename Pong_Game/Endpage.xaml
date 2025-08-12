@@ -63,6 +63,10 @@
                     VerticalAlignment="Center"
                     BorderThickness="2" 
                     BorderBrush="Goldenrod" Click="Settings_Click"/>
+            <Grid Canvas.Left="247" Canvas.Top="115">
+                <Rectangle x:Name="Results" Fill="White" Opacity="0.1" Width="309" Height="175" Canvas.Left="247" Canvas.Top="115" />
+                <TextBlock Text="Past Results" Foreground="White" FontFamily="Arial" FontSize="14" Margin="5,5,0,0"/>
+            </Grid>
         </Canvas>
     </Grid>
 </Window>

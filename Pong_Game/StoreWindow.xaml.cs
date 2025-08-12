@@ -22,6 +22,12 @@ namespace Pong_Game
         public StoreWindow()
         {
             InitializeComponent();
+            Store.SizeChanged += Store_SizeChanged;
+        }
+
+        private void Store_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+           AdjustLayout();
         }
 
         private void OpenStartWindow(object sender, RoutedEventArgs e)
@@ -29,6 +35,29 @@ namespace Pong_Game
             Startseite startwindow = new();
             this.Visibility = Visibility.Hidden; 
             startwindow.Show();
+        }
+
+        private void Startseite_Loaded(object sender, RoutedEventArgs e)
+        {
+            AdjustLayout();
+        }
+        public void AdjustLayout()
+        {
+
+            double width = Store.ActualWidth;
+            double height = Store.ActualHeight;
+
+            double elementWidth = width / 4;
+            double elementHeight = height / 15;
+            double fontSize = width / 40;
+            double spacing = elementHeight * 1.5;
+
+
+        }
+
+        private void buyItem(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

@@ -87,7 +87,8 @@
                     Content="on" 
                     Background="Goldenrod" 
                     FontFamily="Arial" 
-                    FontSize="15" Click="changeBackground"/>
+                    FontSize="15"
+                    Click="changeBackground"/>
 
         </Canvas>
     </Grid>

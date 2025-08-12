@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pong_Game"
         mc:Ignorable="d"
-        Title="StoreWindow" Height="450" Width="800">
+        Title="StoreWindow" Height="450" Width="800" WindowState="Maximized" ResizeMode="CanResize" MinHeight="450" MinWidth="800"
+        SizeChanged="Store_SizeChanged">
     <Grid>
-        <Canvas x:Name="Store" Background="Black">
+        <Canvas x:Name="Store" Background="Black" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
             <Rectangle x:Name="background" 
                        Height="350" 
@@ -15,7 +16,7 @@
                        Fill="White" 
                        Opacity="0.1"
                        Canvas.Left="49"
-                       Canvas.Top="49" />
+                       Canvas.Top="49"/>
 
             <Button x:Name="backToStart" 
                     Width="100" 
@@ -43,7 +44,7 @@
                        Background="DarkRed"
                        Foreground="White" 
                        Width="130"
-                       Height="40" 
+                       Height="37" 
                        FontFamily="Arial" 
                        FontSize="35" 
                        Canvas.Left="129" 
@@ -57,40 +58,14 @@
                        Foreground="White" 
                        FontFamily="Arial" 
                        Width="171" 
-                       Height="40" 
+                       Height="37" 
                        FontSize="35"
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Center" 
                        Canvas.Left="501" 
                        Canvas.Top="49"/>
-
-            <TextBlock x:Name="titleShape" 
-                       Text="Shapes" 
-                       Background="DarkRed" 
-                       Foreground="White" 
-                       Canvas.Left="102" 
-                       Canvas.Top="116" 
-                       Width="54" 
-                       FontFamily="Arial" 
-                       Height="20" 
-                       FontSize="15" 
-                       RenderTransformOrigin="-0.075,0.502" 
-                       HorizontalAlignment="Left" 
-                       VerticalAlignment="Center"/>
-
-            <TextBlock x:Name="titleColour" 
-                       Text="Colour" 
-                       Background="DarkRed" 
-                       Foreground="White" 
-                       FontFamily="Arial" 
-                       FontSize="15" 
-                       Canvas.Left="242" 
-                       Canvas.Top="116" 
-                       Height="20" 
-                       HorizontalAlignment="Left" 
-                       VerticalAlignment="Center"/>
-
-            <ScrollViewer Canvas.Left="50" Canvas.Top="116" Height="285" Width="701"
+            
+            <ScrollViewer x:Name ="Items" Canvas.Left="50" Canvas.Top="100" Height="300" Width="701"
               VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Center" VerticalAlignment="Top">
 
                 <Grid Background="Transparent" Margin="0" Height="284" Width="696">
@@ -160,27 +135,27 @@
                     <Rectangle Fill="IndianRed" Width="10" Height="40" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="20,0,0,0"/>
                     <Rectangle Fill="DarkOrchid" Width="10" Height="40" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Left" Margin="20,0,0,0"/>
 
-                    <TextBlock Text="20 Coins" Foreground="White" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="40 Coins" Foreground="White" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="60 Coins" Foreground="White" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="80 Coins" Foreground="White" Grid.Column="3" Grid.Row="1" HorizontalAlignment="right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="100 Coins" Foreground="White" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="120 Coins" Foreground="White" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="140 Coins" Foreground="White" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="160 Coins" Foreground="white" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="180 Coins" Foreground="white" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="200 Coins" Foreground="white" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <Button Content="20 Coins" Foreground="White" Background="#FF696363" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="40 Coins" Foreground="White" Background="#FF696363" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="60 Coins" Foreground="White" Background="#FF696363" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="80 Coins" Foreground="White" Background="#FF696363" Grid.Column="3" Grid.Row="1" HorizontalAlignment="right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="100 Coins" Foreground="White" Background="#FF696363" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="120 Coins" Foreground="White" Background="#FF696363" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="140 Coins" Foreground="White" Background="#FF696363" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="160 Coins" Foreground="white" Background="#FF696363" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="180 Coins" Foreground="white" Background="#FF696363" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="200 Coins" Foreground="white" Background="#FF696363" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
 
-                    <TextBlock Text="20 Coins" Foreground="White" Grid.Column="5" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="40 Coins" Foreground="White" Grid.Column="7" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="60 Coins" Foreground="White" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="80 Coins" Foreground="White" Grid.Column="7" Grid.Row="1" HorizontalAlignment="right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="100 Coins" Foreground="White" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="120 Coins" Foreground="White" Grid.Column="7" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="140 Coins" Foreground="White" Grid.Column="5" Grid.Row="3" HorizontalAlignment="Left" Margin="44,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Width="71"/>
-                    <TextBlock Text="160 Coins" Foreground="white" Grid.Column="7" Grid.Row="3" HorizontalAlignment="Left" Margin="44,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="180 Coins" Foreground="white" Grid.Column="5" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
-                    <TextBlock Text="200 Coins" Foreground="white" Grid.Column="7" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14"/>
+                    <Button Content="20 Coins" Foreground="White" Background="#FF696363" Grid.Column="5" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="40 Coins" Foreground="White" Background="#FF696363" Grid.Column="7" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="60 Coins" Foreground="White" Background="#FF696363" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="80 Coins" Foreground="White" Background="#FF696363" Grid.Column="7" Grid.Row="1" HorizontalAlignment="right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="100 Coins" Foreground="White" Background="#FF696363" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="120 Coins" Foreground="White" Background="#FF696363" Grid.Column="7" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="140 Coins" Foreground="White" Background="#FF696363" Grid.Column="5" Grid.Row="3" HorizontalAlignment="Left" Margin="46,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="160 Coins" Foreground="white" Background="#FF696363" Grid.Column="7" Grid.Row="3" HorizontalAlignment="Left" Margin="46,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="180 Coins" Foreground="white" Background="#FF696363" Grid.Column="5" Grid.Row="4" HorizontalAlignment="Right" Margin="40,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="200 Coins" Foreground="white" Background="#FF696363" Grid.Column="7" Grid.Row="4" HorizontalAlignment="Center" Margin="40,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
                 </Grid>
             </ScrollViewer>
         </Canvas>

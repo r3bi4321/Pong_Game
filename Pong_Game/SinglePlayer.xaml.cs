@@ -14,7 +14,6 @@ namespace Pong_Game
         private readonly DispatcherTimer gameTimer;
         private bool UpKeyPressed, DownKeyPressed;
         private float SpeedY1;
-        private float SpeedY2;
         private readonly float Friction = 0.6f;
         private readonly float Speed = 3f;
         private double ballSpeedX = 4;
@@ -22,12 +21,14 @@ namespace Pong_Game
         private bool gameGoing = false;
         private int scorePlayer1 = 0;
         private int scorePlayer2 = 0;
-        private bool coinCollected = false;
         private readonly Random rnd = new();
         private readonly DispatcherTimer coinSpawn;
-        private readonly List<Rectangle> activeCoins = [];
+        private readonly List<Rectangle> activeCoins = new();
         private int coinCount1;
         private int lastTouchedBy = 0;
+
+       
+        private int botThinkCounter = 0;
 
         public SinglePlayer()
         {
@@ -46,6 +47,10 @@ namespace Pong_Game
             coinSpawn.Tick += SpawnCoin;
             coinSpawn.Start();
 
+            this.KeyDown += KeyboardDown;
+            this.KeyUp += KeyboardUp;
+            this.SizeChanged += Windowchange;
+
             this.Focusable = true;
             this.Focus();
         }
@@ -54,6 +59,7 @@ namespace Pong_Game
         {
             if (e.Key == Key.W) UpKeyPressed = true;
             if (e.Key == Key.S) DownKeyPressed = true;
+
             if (e.Key == Key.Space && !gameGoing)
             {
                 gameGoing = true;
@@ -76,6 +82,7 @@ namespace Pong_Game
                 return;
             }
 
+           
             if (UpKeyPressed) SpeedY1 -= Speed;
             if (DownKeyPressed) SpeedY1 += Speed;
             SpeedY1 *= Friction;
@@ -84,18 +91,33 @@ namespace Pong_Game
             newY1 = Math.Clamp(newY1, 0, SinglePlayerWindow.ActualHeight - Player1.Height);
             Canvas.SetTop(Player1, newY1);
 
-            
-            double botTargetY = PredictBallImpactY();
+           
             double currentBotY = Canvas.GetTop(Bot) + Bot.Height / 2;
-            double botDiff = botTargetY - currentBotY;
+            double targetY;
 
-            double maxBotSpeed = 8;
+            if (ballSpeedX > 0) 
+            {
+                if (botThinkCounter <= 0)
+                {
+                    targetY = PredictBallImpactY() + rnd.Next(-55, 55); 
+                    botThinkCounter = 5; 
+                }
+                else
+                {
+                    targetY = currentBotY;
+                    botThinkCounter--;
+                }
+            }
+            else
+            {
+                targetY = SinglePlayerWindow.ActualHeight / 2;
+            }
+
+            double botDiff = targetY - currentBotY;
+            double maxBotSpeed = 5; 
             botDiff = Math.Clamp(botDiff, -maxBotSpeed, maxBotSpeed);
 
-            SpeedY2 = (float)botDiff;
-            SpeedY2 *= Friction;
-
-            double newY2 = Canvas.GetTop(Bot) + SpeedY2;
+            double newY2 = Canvas.GetTop(Bot) + botDiff;
             newY2 = Math.Clamp(newY2, 0, SinglePlayerWindow.ActualHeight - Bot.Height);
             Canvas.SetTop(Bot, newY2);
 
@@ -120,10 +142,10 @@ namespace Pong_Game
                 {
                     SinglePlayerWindow.Children.Remove(coin);
                     activeCoins.RemoveAt(i);
-                    coinCollected = true;
 
-                    if(lastTouchedBy== 1)
-                    coinCount1++;
+                    if (lastTouchedBy == 1)
+                        coinCount1++;
+
                     CoinCount1.Text = coinCount1.ToString();
                 }
             }
@@ -195,7 +217,7 @@ namespace Pong_Game
                 }
             }
 
-            return ballY + GameBall.Height / 2 + rnd.Next(-10, 10);
+            return ballY + GameBall.Height / 2;
         }
 
         private void SpawnCoin(object sender, EventArgs e)
@@ -236,8 +258,18 @@ namespace Pong_Game
             ballSpeedX = 4;
             ballSpeedY = 4;
             SpeedY1 = 0;
-            SpeedY2 = 0;
             gameGoing = false;
+        }
+
+        private void Windowchange(object sender, SizeChangedEventArgs e)
+        {
+            double rightPos = SinglePlayerWindow.ActualWidth - Bot.Width;
+            if (rightPos < 0) rightPos = 0;
+            Canvas.SetLeft(Bot, rightPos);
+
+            double scoreRightPos = SinglePlayerWindow.ActualWidth - ScoreBot.Width - 40;
+            if (scoreRightPos < 0) scoreRightPos = 0;
+            Canvas.SetLeft(ScoreBot, scoreRightPos);
         }
     }
 }
