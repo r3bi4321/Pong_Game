@@ -8,6 +8,22 @@
         Title="Startseite" Height="450" Width="800">
     <Grid>
         <Canvas x:Name="StartScreen" Background="Black">
+            <Ellipse x:Name="Ball6" Fill="Violet" Height="30" Width="30" Canvas.Left="435" Canvas.Top="177" Opacity="0.9"/>
+            <Ellipse x:Name="Ball9" Fill="Pink" Height="30" Width="30" Canvas.Left="554" Canvas.Top="40" Opacity="0.9"/>
+            <Ellipse x:Name="Ball8" Fill="Pink" Height="40" Width="40" Canvas.Left="120" Canvas.Top="319" Opacity="0.9"/>
+            <Ellipse x:Name="Ball5" Fill="Violet" Height="40" Width="40" Canvas.Left="204" Canvas.Top="175" Opacity="0.9"/>
+            <Ellipse x:Name="Ball1" Fill="DarkViolet" Height="30" Width="30" Canvas.Left="50" Canvas.Top="243" Opacity="0.9"/>
+            <Ellipse x:Name="Ball2" Fill="DarkViolet" Height="50" Width="50" Canvas.Left="683" Canvas.Top="155" Opacity="0.9"/>
+            <Ellipse x:Name="Ball3" Fill="DarkViolet" Height="40" Width="40" Canvas.Left="624" Canvas.Top="299" Opacity="0.9"/>
+            <Ellipse x:Name="Ball7" Fill="Pink" Height="50" Width="50" Canvas.Left="435" Canvas.Top="279" Opacity="0.9"/>
+            <Ellipse x:Name="Ball4" Fill="Violet" Height="50" Width="50" Canvas.Left="266" Canvas.Top="337" Opacity="0.9"/>
+            <Ellipse x:Name="Ball10" Fill="DeepPink" Height="50" Width="50" Canvas.Left="325" Canvas.Top="197" Opacity="0.8" />
+            <Ellipse x:Name="Ball11" Fill="DeepPink" Height="40" Width="40" Canvas.Left="80" Canvas.Top="142" Opacity="0.8" />
+            <Ellipse x:Name="Ball12" Fill="DeepPink" Height="30" Width="30" Canvas.Left="569" Canvas.Top="157" Opacity="0.8"/>
+            <Ellipse x:Name="Ball13" Fill="BlueViolet" Height="50" Width="50" Canvas.Left="350" Canvas.Top="112" Opacity="0.9"/>
+            <Ellipse x:Name="Ball14" Fill="BlueViolet" Height="40" Width="40" Canvas.Left="529" Canvas.Top="362" Opacity="0.9"/>
+            <Ellipse x:Name="Ball15" Fill="BlueViolet" Height="30" Width="30" Canvas.Left="549" Canvas.Top="243" Opacity="0.9" />
+
             <TextBlock x:Name="Title"                   
                        Text="Pong-Game" 
                        FontFamily="Arial" 
@@ -79,11 +95,6 @@
                     BorderThickness="2" 
                     BorderBrush="Goldenrod"
                     Click="OpenWindowStore"/>
-
-            <Ellipse x:Name="Ball1" Fill="DarkViolet" Height="40" Width="40" Canvas.Left="50" Canvas.Top="243"/>
-            <Ellipse x:Name="Ball2" Fill="DarkViolet" Height="40" Width="40" Canvas.Left="683" Canvas.Top="155" />
-            <Ellipse x:Name="Ball3" Fill="DarkViolet" Height="40" Width="40" Canvas.Left="624" Canvas.Top="299"/>
-            <Ellipse x:Name="Ball4" Fill="DarkViolet" Height="40" Width="40" Canvas.Left="266" Canvas.Top="337"/>
         </Canvas>
     </Grid>
 </Window>

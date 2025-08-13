@@ -8,6 +8,20 @@
         Title="SettingsWindow" Height="450" Width="800">
     <Grid>
         <Canvas x:Name="windowSetting" Background="Black">
+
+            <Ellipse x:Name="Ball1" Width="50" Height="50" Fill="Yellow" Canvas.Left="84" Canvas.Top="175" Opacity="0.9"/>
+            <Ellipse x:Name="Ball2" Width="40" Height="40" Fill="Yellow" Canvas.Left="665" Canvas.Top="274" Opacity="0.9"/>
+            <Ellipse x:Name="Ball3" Width="30" Height="30" Fill="Yellow" Canvas.Left="408" Canvas.Top="380" Opacity="0.9"/>
+            <Ellipse x:Name="Ball4" Width="50" Height="50" Fill="Orange" Canvas.Left="635" Canvas.Top="50" Opacity="0.9"/>
+            <Ellipse x:Name="Ball5" Width="40" Height="40" Fill="Orange" Canvas.Left="60" Canvas.Top="300" Opacity="0.9"/>
+            <Ellipse x:Name="Ball6" Width="30" Height="30" Fill="Orange" Canvas.Left="302" Canvas.Top="380" Opacity="0.9"/>
+            <Ellipse x:Name="Ball7" Width="50" Height="50" Fill="Red" Canvas.Left="608" Canvas.Top="370" Opacity="0.9"/>
+            <Ellipse x:Name="Ball8" Width="40" Height="40" Fill="Red" Canvas.Left="72" Canvas.Top="90" Opacity="0.9"/>
+            <Ellipse x:Name="Ball9" Width="30" Height="30" Fill="Red" Canvas.Left="590" Canvas.Top="200" Opacity="0.9"/>
+            <Ellipse x:Name="Ball10" Width="50" Height="50" Fill="OrangeRed" Canvas.Left="718" Canvas.Top="133" Opacity="0.9"/>
+            <Ellipse x:Name="Ball11" Width="40" Height="40" Fill="OrangeRed" Canvas.Left="149" Canvas.Top="336" Opacity="0.9"/>
+            <Ellipse x:Name="Ball12" Width="30" Height="30" Fill="OrangeRed" Canvas.Left="718" Canvas.Top="356" Opacity="0.9"/>
+
             <Button x:Name="BackToStart" 
                     Width="100" 
                     Height="35" 
@@ -36,7 +50,7 @@
                     Width="140"
                     Canvas.Left="418" 
                     Canvas.Top="149"
-                    Background="Goldenrod" />
+                    Background="Goldenrod" ValueChanged="ballSize_ValueChanged" />
             <TextBlock x:Name="titleSettings"
                        Text="Settings" 
                        Width="76" 
@@ -53,7 +67,7 @@
                     Width="140"
                     Background="Goldenrod"
                     Canvas.Left="418" 
-                    Canvas.Top="208"/>
+                    Canvas.Top="208" ValueChanged="paddleSize_ValueChanged"/>
             <TextBlock x:Name="txtBallSize"
                        Text="Ballsize"
                        Background="#FF191919"
@@ -79,17 +93,26 @@
                        FontFamily="Arial" 
                        Canvas.Left="242" 
                        Canvas.Top="274" />
-            <Button x:Name="darkMode" 
-                    Height="20" 
-                    Width="140" 
-                    Canvas.Left="418" 
-                    Canvas.Top="271" 
-                    Content="on" 
-                    Background="Goldenrod" 
-                    FontFamily="Arial" 
-                    FontSize="15"
-                    Click="changeBackground"/>
 
+            <ToggleButton x:Name="darkMode"
+                          Height="30" Width="64" Canvas.Left="456" Canvas.Top="268" HorizontalAlignment="Left" VerticalAlignment="Center" Checked="changeBackground">
+                <ToggleButton.Template>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="B1" Background="White" CornerRadius="15" Padding="1">
+                            <Border x:Name="B2" Background="Goldenrod" Width="{TemplateBinding Height}" CornerRadius="20" HorizontalAlignment="Left">
+                                <ContentPresenter/>
+                            </Border>
+                        </Border>
+
+                        <ControlTemplate.Triggers >
+                            <Trigger Property="IsChecked" Value="True" >
+                                <Setter Property="Background" Value="Black" />
+                                <Setter TargetName="B2" Property="HorizontalAlignment" Value="Right" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </ToggleButton.Template>
+            </ToggleButton>
         </Canvas>
     </Grid>
 </Window>

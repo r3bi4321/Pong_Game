@@ -211,9 +211,14 @@ namespace Pong_Game
             gameGoing = false;
             this.Visibility = Visibility.Hidden;
 
-            Endpage endPage = new();
+            string winnerText = winningPlayer == 1
+                ? "Spieler 1"
+                : "Spieler 2";
+
+            Endpage endPage = new(winnerText);
             endPage.Show();
         }
+
 
         private void ResetGame()
         {

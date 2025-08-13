@@ -5,10 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pong_Game"
         mc:Ignorable="d"
-        Title="StoreWindow" Height="450" Width="800" WindowState="Maximized" ResizeMode="CanResize" MinHeight="450" MinWidth="800"
+        Title="StoreWindow" Height="450" Width="800" 
         SizeChanged="Store_SizeChanged">
     <Grid>
-        <Canvas x:Name="Store" Background="Black" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Canvas x:Name="Store" Background="Black">
+
+            <Ellipse x:Name="Ball1" Width="40" Height="40" Fill="LightBlue" Canvas.Left="30" Canvas.Top="224" Opacity="0.9"/>
+            <Ellipse x:Name="Ball2" Width="20" Height="20" Fill="LightBlue" Canvas.Left="353" Canvas.Top="260"  Opacity="0.9"/>
+            <Ellipse x:Name="Ball3" Width="20" Height="20" Fill="LightBlue" Canvas.Left="731" Canvas.Top="260" Opacity="0.9" />
+            <Ellipse x:Name="Ball4" Width="40" Height="40" Fill="DeepSkyBlue" Canvas.Left="343" Canvas.Top="369" Opacity="0.9"/>
+            <Ellipse x:Name="Ball5" Width="20" Height="20" Fill="DeepSkyBlue" Canvas.Left="756" Canvas.Top="100" Opacity="0.9" />
+            <Ellipse x:Name="Ball6" Width="20" Height="20" Fill="DeepSkyBlue" Canvas.Left="741" Canvas.Top="359" Opacity="0.9"/>
+            <Ellipse x:Name="Ball7" Width="40" Height="40" Fill="CadetBlue" Canvas.Left="50" Canvas.Top="60" Opacity="0.9"/>
+            <Ellipse x:Name="Ball8" Width="20" Height="20" Fill="CadetBlue" Canvas.Left="405" Canvas.Top="339" Opacity="0.9"/>
+            <Ellipse x:Name="Ball9" Width="20" Height="20" Fill="CadetBlue" Canvas.Left="751" Canvas.Top="184" Opacity="0.9"/>
+            <Ellipse x:Name="Ball10" Width="50" Height="50" Fill="Blue" Canvas.Left="375" Canvas.Top="120" Opacity="0.9"/>
+            <Ellipse x:Name="Ball11" Width="40" Height="40" Fill="Blue" Canvas.Left="30" Canvas.Top="309" Opacity="0.9" />
+            <Ellipse x:Name="Ball12" Width="30" Height="30" Fill="Blue" Canvas.Left="405" Canvas.Top="217" Opacity="0.9"/>
 
             <Rectangle x:Name="background" 
                        Height="350" 
@@ -64,7 +77,7 @@
                        VerticalAlignment="Center" 
                        Canvas.Left="501" 
                        Canvas.Top="49"/>
-            
+
             <ScrollViewer x:Name ="Items" Canvas.Left="50" Canvas.Top="100" Height="300" Width="701"
               VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Center" VerticalAlignment="Top">
 

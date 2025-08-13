@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Pong_Game
 {
@@ -20,10 +21,13 @@ namespace Pong_Game
     public partial class Endpage : Window
     {
         private int winningPlayer;
+        private List<(Ellipse ball, double dx, double dy)> balls;
+        private DispatcherTimer timer;
 
-        public Endpage()
+        public Endpage(string winnerText)
         {
             InitializeComponent();
+            WinnerLabel.Text = winnerText;
         }
 
         public Endpage(int winningPlayer)
