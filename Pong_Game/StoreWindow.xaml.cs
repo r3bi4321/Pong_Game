@@ -52,7 +52,22 @@ namespace Pong_Game
 
         private void buyItem(object sender, RoutedEventArgs e)
         {
-            
+            changeBackgroundAndContentOfBoughtItem(sender, e);
+           
+
+              
+        }
+
+        private void changeBackgroundAndContentOfBoughtItem(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = sender as Button;
+
+            if (clickedButton != null)
+            {
+                clickedButton.Content = "Equipe";
+
+      
+            }
         }
 
         public void backgroundMovement()
@@ -77,11 +92,11 @@ namespace Pong_Game
             
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(16); 
-            timer.Tick += Timer_Tick;
+            timer.Tick += BallMovement;
             timer.Start();
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void BallMovement(object sender, EventArgs e)
         {
             double maxX = Store.ActualWidth;
             double maxY = Store.ActualHeight;
@@ -105,6 +120,12 @@ namespace Pong_Game
                 balls[i] = (ball, dx, dy);
             }
         }
-    
+
+        private void goToItemEquipment(object sender, RoutedEventArgs e)
+        {
+            AdjustLooks adjustLooks = new();
+            this.Visibility = Visibility.Hidden;
+            adjustLooks.Show();
+        }
     }
 }

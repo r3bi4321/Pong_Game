@@ -281,5 +281,12 @@ namespace Pong_Game
             ScorePlayer1.Text = scorePlayer1.ToString();
             ScoreBot.Text = scoreBot.ToString();
         }
+
+        public void setPaddleSize(double width, double height)
+        {
+            Player1.Width = width;
+            Player1.Height = height;
+        }
+
     }
 }

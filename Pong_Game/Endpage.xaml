@@ -17,6 +17,7 @@
             <Ellipse x:Name="Ball6" Fill="LawnGreen" Width="30" Height="30" Canvas.Left="122" Canvas.Top="70" Opacity="0.9"/>
             <Ellipse x:Name="Ball7" Fill="ForestGreen" Width="50" Height="50" Canvas.Left="705" Canvas.Top="280" Opacity="0.9"/>
             <Ellipse x:Name="Ball8" Fill="ForestGreen" Width="40" Height="40" Canvas.Left="611" Canvas.Top="168" Opacity="0.9"/>
+            <Ellipse x:Name="Ball9" Fill="ForestGreen" Width="30" Height="30" Canvas.Left="372" Canvas.Top="360" Opacity="0.9"/>
 
             <TextBlock x:Name="titleEndgame" Text="Game over" Foreground="White" FontFamily="Arial" FontSize="50" Canvas.Left="276" Canvas.Top="53"/>
             <Button x:Name="playAgain" 

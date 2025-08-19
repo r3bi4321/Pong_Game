@@ -21,17 +21,25 @@ namespace Pong_Game
         {
             InitializeComponent();
             Loaded += Startseite_Loaded;
-            SizeChanged += (s, e) => AdjustLayout();
+            SizeChanged += (s, e) => AdjustScreenSize();
             backgroundMovement(); 
         }
 
         private void Startseite_Loaded(object sender, RoutedEventArgs e)
         {
-            AdjustLayout();
+            AdjustScreenSize();
+            ChangeBackground();
           
         }
 
-        public void AdjustLayout()
+        private void ChangeBackground()
+        {
+            return;
+        }
+
+
+
+        public void AdjustScreenSize()
         {
             double width = StartScreen.ActualWidth;
             double height = StartScreen.ActualHeight;
@@ -83,7 +91,7 @@ namespace Pong_Game
             Canvas.SetLeft(goToStore, width - goToStore.Width - 20);
         }
 
-        private void OpenWindow(object sender, RoutedEventArgs e)
+        private void Open2PlayerWindow(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -145,11 +153,11 @@ namespace Pong_Game
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(16);
-            timer.Tick += Timer_Tick;
+            timer.Tick += BallMovement;
             timer.Start();
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void BallMovement(object sender, EventArgs e)
         {
             double maxX = StartScreen.ActualWidth;
             double maxY = StartScreen.ActualHeight;

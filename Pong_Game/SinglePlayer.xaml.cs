@@ -23,11 +23,14 @@ namespace Pong_Game
         private int scorePlayer2 = 0;
         private readonly Random rnd = new();
         private readonly DispatcherTimer coinSpawn;
-        private readonly List<Rectangle> activeCoins = new();
+        private readonly List<Rectangle> activeCoins = [];
         private int coinCount1;
         private int lastTouchedBy = 0;
+        public double nextBallX;
+        private double nextBallY;
+        private int ImpactX;
+        private int ImpactY;
 
-       
         private int botThinkCounter = 0;
 
         public SinglePlayer()
@@ -47,7 +50,7 @@ namespace Pong_Game
             coinSpawn.Tick += SpawnCoin;
             coinSpawn.Start();
 
-            this.KeyDown += KeyboardDown;
+            this.KeyDown += KeyPressedForMovement;
             this.KeyUp += KeyboardUp;
             this.SizeChanged += Windowchange;
 
@@ -55,7 +58,7 @@ namespace Pong_Game
             this.Focus();
         }
 
-        public void KeyboardDown(object sender, KeyEventArgs e)
+        public void KeyPressedForMovement(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.W) UpKeyPressed = true;
             if (e.Key == Key.S) DownKeyPressed = true;
@@ -82,25 +85,21 @@ namespace Pong_Game
                 return;
             }
 
-           
             if (UpKeyPressed) SpeedY1 -= Speed;
             if (DownKeyPressed) SpeedY1 += Speed;
             SpeedY1 *= Friction;
 
-            double newY1 = Canvas.GetTop(Player1) + SpeedY1;
-            newY1 = Math.Clamp(newY1, 0, SinglePlayerWindow.ActualHeight - Player1.Height);
-            Canvas.SetTop(Player1, newY1);
+            MovementPlayer();
 
-           
             double currentBotY = Canvas.GetTop(Bot) + Bot.Height / 2;
             double targetY;
 
-            if (ballSpeedX > 0) 
+            if (ballSpeedX > 0)
             {
                 if (botThinkCounter <= 0)
                 {
-                    targetY = PredictBallImpactY() + rnd.Next(-55, 55); 
-                    botThinkCounter = 5; 
+                    targetY = PredictBallImpact() + rnd.Next(-55, 55);
+                    botThinkCounter = 5;
                 }
                 else
                 {
@@ -113,21 +112,31 @@ namespace Pong_Game
                 targetY = SinglePlayerWindow.ActualHeight / 2;
             }
 
+            SetBotPosition(currentBotY, targetY);
+            BallAndCoinUpdate();
+        }
+
+        public void MovementPlayer()
+        {
+            double newY1 = Canvas.GetTop(Player1) + SpeedY1;
+            newY1 = Math.Clamp(newY1, 0, SinglePlayerWindow.ActualHeight - Player1.Height);
+            Canvas.SetTop(Player1, newY1);
+        }
+        public void SetBotPosition(double currentBotY, double targetY)
+        {
             double botDiff = targetY - currentBotY;
-            double maxBotSpeed = 5; 
+            double maxBotSpeed = 5;
             botDiff = Math.Clamp(botDiff, -maxBotSpeed, maxBotSpeed);
 
             double newY2 = Canvas.GetTop(Bot) + botDiff;
             newY2 = Math.Clamp(newY2, 0, SinglePlayerWindow.ActualHeight - Bot.Height);
             Canvas.SetTop(Bot, newY2);
-
-            BallAndCoinUpdate();
         }
 
         private void BallAndCoinUpdate()
         {
-            double nextBallX = Canvas.GetLeft(GameBall) + ballSpeedX;
-            double nextBallY = Canvas.GetTop(GameBall) + ballSpeedY;
+             nextBallX = Canvas.GetLeft(GameBall) + ballSpeedX;
+             nextBallY = Canvas.GetTop(GameBall) + ballSpeedY;
 
             if (nextBallY <= 0 || nextBallY >= SinglePlayerWindow.ActualHeight - GameBall.Height)
                 ballSpeedY = -ballSpeedY;
@@ -198,26 +207,31 @@ namespace Pong_Game
             Canvas.SetTop(GameBall, nextBallY);
         }
 
-        private double PredictBallImpactY()
+        private double PredictBallImpact()
         {
-            double ballX = Canvas.GetLeft(GameBall);
-            double ballY = Canvas.GetTop(GameBall);
-            double speedX = ballSpeedX;
-            double speedY = ballSpeedY;
-            double paddleX = Canvas.GetLeft(Bot);
-
-            while (ballX + GameBall.Width < paddleX)
+            do
             {
-                ballX += speedX;
-                ballY += speedY;
+                int BallX1 = (int)Canvas.GetLeft(GameBall);
+                int BallY1 = (int)Canvas.GetBottom(GameBall);
+                int sideB = (int)SinglePlayerWindow.ActualHeight - BallY1;
 
-                if (ballY <= 0 || ballY >= SinglePlayerWindow.ActualHeight - GameBall.Height)
+                int climbe = (int)((nextBallY - BallY1) / (nextBallX - BallX1));
+                int angle = (int)(Math.Atan(climbe));
+                int sideC = (int)(Math.Tan(angle) * sideB);
+
+                ImpactX = (int)(BallX1 + sideC);   
+
+                if(climbe< 0)
                 {
-                    speedY = -speedY;
+                    ImpactY = (int)(SinglePlayerWindow.ActualHeight - sideB);
                 }
-            }
-
-            return ballY + GameBall.Height / 2;
+                else 
+                {
+                    ImpactY = (int)(Canvas.GetBottom(Bot) + sideB);
+                }
+ 
+                    return (ImpactX);
+            } while (ImpactX < 780); 
         }
 
         private void SpawnCoin(object sender, EventArgs e)

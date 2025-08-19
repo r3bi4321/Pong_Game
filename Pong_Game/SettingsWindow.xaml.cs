@@ -26,12 +26,17 @@ namespace Pong_Game
 
         private void paddleSize_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            double valuePaddleSize = paddleSize.Value;
+            int PaddleSize = (int)valuePaddleSize;
 
         }
 
         private void ballSize_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            double valueBallSize = ballSize.Value;
+            int BallSize = (int)valueBallSize;
 
+            
         }
 
         private void changeBackground(object sender, RoutedEventArgs e)
@@ -60,11 +65,11 @@ namespace Pong_Game
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(16);
-            timer.Tick += Timer_Tick;
+            timer.Tick += BallMovement;
             timer.Start();
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void BallMovement(object sender, EventArgs e)
         {
             double maxX = windowSetting.ActualWidth;
             double maxY = windowSetting.ActualHeight;
