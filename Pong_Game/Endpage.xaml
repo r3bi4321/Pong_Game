@@ -5,20 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pong_Game"
         mc:Ignorable="d"
-        Title="Endpage" Height="450" Width="800">
+        Title="Endpage" Height="450" Width="800"  ResizeMode="NoResize">
     <Grid>
         <Canvas x:Name="endPage" Background="Black">
-
-            <Ellipse x:Name="Ball1" Fill="LightGreen" Width="40" Height="40" Canvas.Left="93" Canvas.Top="178" Opacity="0.9"/>
-            <Ellipse x:Name="Ball2" Fill="LightGreen" Width="30" Height="30" Canvas.Left="298" Canvas.Top="18" Opacity="0.9"/>
-            <Ellipse x:Name="Ball3" Fill="LightGreen" Width="50" Height="50" Canvas.Left="601" Canvas.Top="330" Opacity="0.9"/>
-            <Ellipse x:Name="Ball4" Fill="LawnGreen" Width="50" Height="50" Canvas.Left="34" Canvas.Top="280" Opacity="0.9"/>
-            <Ellipse x:Name="Ball5" Fill="LawnGreen" Width="40" Height="40" Canvas.Left="556" Canvas.Top="20" Opacity="0.9"/>
-            <Ellipse x:Name="Ball6" Fill="LawnGreen" Width="30" Height="30" Canvas.Left="122" Canvas.Top="70" Opacity="0.9"/>
-            <Ellipse x:Name="Ball7" Fill="ForestGreen" Width="50" Height="50" Canvas.Left="705" Canvas.Top="280" Opacity="0.9"/>
-            <Ellipse x:Name="Ball8" Fill="ForestGreen" Width="40" Height="40" Canvas.Left="611" Canvas.Top="168" Opacity="0.9"/>
-            <Ellipse x:Name="Ball9" Fill="ForestGreen" Width="30" Height="30" Canvas.Left="372" Canvas.Top="360" Opacity="0.9"/>
-
+         
             <TextBlock x:Name="titleEndgame" Text="Game over" Foreground="White" FontFamily="Arial" FontSize="50" Canvas.Left="276" Canvas.Top="53"/>
             <Button x:Name="playAgain" 
                     Width="140" 
@@ -78,7 +68,6 @@
             <Grid Canvas.Left="247" Canvas.Top="115">
                 <Rectangle x:Name="Results" Fill="White" Opacity="0.1" Width="309" Height="175" Canvas.Left="247" Canvas.Top="115" />
                 <TextBlock Text="Past Winners" Foreground="White" FontFamily="Arial" FontSize="14" Margin="5,5,0,0"/>
-
             </Grid>
 
             <TextBlock x:Name="WinnerLabel"  

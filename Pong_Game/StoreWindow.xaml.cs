@@ -1,15 +1,14 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
@@ -20,104 +19,100 @@ namespace Pong_Game
     /// </summary>
     public partial class StoreWindow : Window
     {
-
         private List<(Ellipse ball, double dx, double dy)> balls;
         private DispatcherTimer timer;
+        private readonly IMongoCollection<StoreItem> BallDesignCollection;
+        private readonly IMongoCollection<StoreItem> PaddleDesignCollection;
 
         public StoreWindow()
         {
             InitializeComponent();
             Store.SizeChanged += Store_SizeChanged;
-            backgroundMovement();
+
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("PongDB");
+            BallDesignCollection = database.GetCollection<StoreItem>("BallDesign");
+            PaddleDesignCollection = database.GetCollection<StoreItem>("PaddleDesign");
+        }
+
+        private void buyPaddleItem(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                string tag = btn.Tag?.ToString() ?? "Unknown";
+                string content = btn.Content.ToString();
+
+                int price = 0;
+                if (int.TryParse(content.Split(' ')[0], out int parsedPrice))
+                {
+                    price = parsedPrice;
+                }
+
+                var item = new StoreItem
+                {
+                    Username = Session.Username,
+                    Tag = tag,
+                    Price = price,
+                    Bought = true
+                };
+
+                PaddleDesignCollection.InsertOne(item);
+
+                changeBackgroundAndContentOfBoughtItem(btn);
+            }
+        }
+
+        public void buyGameBallItem(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                string tag = btn.Tag?.ToString() ?? "Unknown";
+                string content = btn.Content.ToString();
+
+                int price = 0;
+                if (int.TryParse(content.Split(' ')[0], out int parsedPrice))
+                {
+                    price = parsedPrice;
+                }
+
+                var item = new StoreItem
+                {
+                    Username = Session.Username,
+                    Tag = tag,
+                    Price = price,
+                    Bought = true
+                };
+
+                BallDesignCollection.InsertOne(item);
+
+                changeBackgroundAndContentOfBoughtItem(btn);
+            }
         }
 
         private void Store_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-           AdjustLayout();
+            AdjustLayout();
         }
 
         private void OpenStartWindow(object sender, RoutedEventArgs e)
         {
             Startseite startwindow = new();
-            this.Visibility = Visibility.Hidden; 
+            this.Visibility = Visibility.Hidden;
             startwindow.Show();
         }
 
         public void AdjustLayout()
         {
-
-            return; 
-
+            return;
         }
 
-        private void buyItem(object sender, RoutedEventArgs e)
+        private void changeBackgroundAndContentOfBoughtItem(Button clickedButton)
         {
-            changeBackgroundAndContentOfBoughtItem(sender, e);
-           
-
-              
-        }
-
-        private void changeBackgroundAndContentOfBoughtItem(object sender, RoutedEventArgs e)
-        {
-            Button clickedButton = sender as Button;
-
             if (clickedButton != null)
             {
-                clickedButton.Content = "Equipe";
-
-      
-            }
-        }
-
-        public void backgroundMovement()
-        {
-            balls =
-            [
-                (Ball1,  2,  2),
-                (Ball2, -2.5,  2),
-                (Ball3,  1, -2),
-                (Ball4,  2, -1.5),
-                (Ball5, -2.5, 1),
-                (Ball6,  1.5,  2.5),
-                (Ball7, -1.5, -2),
-                (Ball8,  2.5, -1.2),
-                (Ball9, -2,  1.8),
-                (Ball10, 3, -4),
-                (Ball11, 4, -1.3),
-                (Ball12, 5, -2),
-
-            ];
-
-            
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(16); 
-            timer.Tick += BallMovement;
-            timer.Start();
-        }
-
-        private void BallMovement(object sender, EventArgs e)
-        {
-            double maxX = Store.ActualWidth;
-            double maxY = Store.ActualHeight;
-
-            for (int i = 0; i < balls.Count; i++)
-            {
-                var (ball, dx, dy) = balls[i];
-
-                double x = Canvas.GetLeft(ball) + dx;
-                double y = Canvas.GetTop(ball) + dy;
-
-               
-                if (x <= 0 || x + ball.Width >= maxX)
-                    dx = -dx;
-                if (y <= 0 || y + ball.Height >= maxY)
-                    dy = -dy;
-
-                Canvas.SetLeft(ball, x);
-                Canvas.SetTop(ball, y);
-
-                balls[i] = (ball, dx, dy);
+                clickedButton.Content = "Sold";
+                clickedButton.Background = Brushes.Gray;
+                clickedButton.IsEnabled = false;
             }
         }
 
@@ -128,4 +123,25 @@ namespace Pong_Game
             adjustLooks.Show();
         }
     }
+
+    public class StoreItem
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+
+        [BsonElement("Username")]
+        public string Username { get; set; }   
+
+        [BsonElement("Tag")]
+        public string Tag { get; set; }
+
+        [BsonElement("Price")]
+        public int Price { get; set; }
+
+        [BsonElement("Bought")]
+        public bool Bought { get; set; }
+    }
+
+
 }

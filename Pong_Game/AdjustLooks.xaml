@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pong_Game"
         mc:Ignorable="d"
-        Title="AdjustLooks" Height="450" Width="800">
+        Title="AdjustLooks" Height="450" Width="800" ResizeMode="NoResize">
     <Grid>
         <Canvas x:Name="changeLookGame" Background="Black">
+
             <Grid Canvas.Left="40" Canvas.Top="123" x:Name="GridDisplay" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>
@@ -23,6 +24,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
 

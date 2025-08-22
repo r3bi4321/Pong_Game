@@ -5,68 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pong_Game"
         mc:Ignorable="d"
-        Title="Startseite" Height="450" Width="800">
+        Title="Startseite" Height="450" Width="800" ResizeMode="NoResize">
     <Grid>
         <Canvas x:Name="StartScreen" Background="Black">
-            <Ellipse x:Name="Ball6" Fill="Violet" Height="30" Width="30" Canvas.Left="435" Canvas.Top="177" Opacity="0.9"/>
-            <Ellipse x:Name="Ball9" Fill="Pink" Height="30" Width="30" Canvas.Left="554" Canvas.Top="40" Opacity="0.9"/>
-            <Ellipse x:Name="Ball8" Fill="Pink" Height="40" Width="40" Canvas.Left="120" Canvas.Top="319" Opacity="0.9"/>
-            <Ellipse x:Name="Ball5" Fill="Violet" Height="40" Width="40" Canvas.Left="204" Canvas.Top="175" Opacity="0.9"/>
-            <Ellipse x:Name="Ball1" Fill="DarkViolet" Height="30" Width="30" Canvas.Left="50" Canvas.Top="243" Opacity="0.9"/>
-            <Ellipse x:Name="Ball2" Fill="DarkViolet" Height="50" Width="50" Canvas.Left="683" Canvas.Top="155" Opacity="0.9"/>
-            <Ellipse x:Name="Ball3" Fill="DarkViolet" Height="40" Width="40" Canvas.Left="624" Canvas.Top="299" Opacity="0.9"/>
-            <Ellipse x:Name="Ball7" Fill="Pink" Height="50" Width="50" Canvas.Left="435" Canvas.Top="279" Opacity="0.9"/>
-            <Ellipse x:Name="Ball4" Fill="Violet" Height="50" Width="50" Canvas.Left="266" Canvas.Top="337" Opacity="0.9"/>
-            <Ellipse x:Name="Ball10" Fill="DeepPink" Height="50" Width="50" Canvas.Left="325" Canvas.Top="197" Opacity="0.8" />
-            <Ellipse x:Name="Ball11" Fill="DeepPink" Height="40" Width="40" Canvas.Left="80" Canvas.Top="142" Opacity="0.8" />
-            <Ellipse x:Name="Ball12" Fill="DeepPink" Height="30" Width="30" Canvas.Left="569" Canvas.Top="157" Opacity="0.8"/>
-            <Ellipse x:Name="Ball13" Fill="BlueViolet" Height="50" Width="50" Canvas.Left="350" Canvas.Top="112" Opacity="0.9"/>
-            <Ellipse x:Name="Ball14" Fill="BlueViolet" Height="40" Width="40" Canvas.Left="529" Canvas.Top="362" Opacity="0.9"/>
-            <Ellipse x:Name="Ball15" Fill="BlueViolet" Height="30" Width="30" Canvas.Left="549" Canvas.Top="243" Opacity="0.9" />
-
             <TextBlock x:Name="Title"                   
                        Text="Pong-Game" 
                        FontFamily="Arial" 
                        TextAlignment="Center" 
                        FontSize="70" 
-                       Foreground="DarkRed" />
+                       Foreground="DarkRed" Canvas.Left="211" Canvas.Top="90" HorizontalAlignment="Center" VerticalAlignment="Top" />
             <Button x:Name="twoPlayerButton"
                     Background="DarkRed" 
                     Content="Multi-Player" 
                     Foreground="White" 
                     FontSize="23" 
                     FontFamily="Arial"
-                     Width="160"
+                     Width="217"
                     Click="Open2PlayerWindow"
                     BorderThickness="2" 
-                    BorderBrush="Goldenrod" />
+                    BorderBrush="Goldenrod" Canvas.Left="428" Canvas.Top="271" HorizontalAlignment="Left" VerticalAlignment="Top" />
             <Button x:Name="singlePlayerButton" 
                     Background="DarkRed" 
                     Foreground="White" 
-                    Width="160"               
+                    Width="217"               
                     Content="Single Player" 
                     FontFamily="Arial" 
                     FontSize="23" 
                     Click="OpensinglePlayerWindow"
                     BorderThickness="2" 
-                    BorderBrush="Goldenrod" />
+                    BorderBrush="Goldenrod" Canvas.Left="154" Canvas.Top="271" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.638,0.722" />
             <TextBox x:Name="enterPoints" 
-                     Width="160" 
+                     Width="217" 
                      Height="20" 
                      Background="DarkRed"
                      HorizontalAlignment="Left" 
                      VerticalAlignment="Center"
                      Text="Enter Needed Points"
                      Foreground="White"
-                     FontFamily="Arial" />
+                     FontFamily="Arial" Canvas.Left="428" Canvas.Top="217" GotFocus="enterNeededPoints"  />
             <TextBox x:Name="speedBall" 
-                     Width="160" 
+                     Width="217" 
                      Height="20" 
                      Background="DarkRed" 
                      Text="Enter Ballspeed" 
                      Foreground="white" 
-                     HorizontalAlignment="Left" 
-                     VerticalAlignment="Center"/>
+                     HorizontalAlignment="Center" 
+                     VerticalAlignment="Center" Canvas.Left="154" Canvas.Top="217" GotFocus="InputBallSpeed"  />
             <Button x:Name="Settings" 
                     Content="Settings"
                     Height="40"
@@ -91,19 +75,18 @@
                     BorderBrush="Goldenrod" 
                     BorderThickness="2" 
                     HorizontalAlignment="Left" 
-                    Canvas.Right="0" />
+                    Canvas.Right="0" Click="goToLogin" />
             <Button x:Name="goToStore"
                     Width="90"
                     Height="40" 
                     Canvas.Right="0" 
-                    Canvas.Top="90" 
                     Background="DarkRed" 
                     Foreground="White" 
                     Content="Store" 
                     FontFamily="Arial" 
                     FontSize="20" 
-                    HorizontalAlignment="Center" 
-                    Canvas.Left="710" 
+                    HorizontalAlignment="Left" 
+                    Canvas.Left="0" 
                     VerticalAlignment="Top"
                     BorderThickness="2" 
                     BorderBrush="Goldenrod"

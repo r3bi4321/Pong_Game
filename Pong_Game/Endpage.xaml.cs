@@ -20,7 +20,7 @@ namespace Pong_Game
     /// </summary>
     public partial class Endpage : Window
     {
-        private int winningPlayer;
+        private readonly int winningPlayer;
         private List<(Ellipse ball, double dx, double dy)> balls;
         private DispatcherTimer timer;
 
@@ -30,10 +30,9 @@ namespace Pong_Game
             WinnerLabel.Text = winnerText;
         }
 
-        public Endpage(int winningPlayer)
+        public Endpage(int winningPlayer, int scorePlayer2)
         {
-            this.winningPlayer = winningPlayer;
-            
+            this.winningPlayer = winningPlayer; 
         }
 
         private void OpenStartWindow(object sender, RoutedEventArgs e)
@@ -61,5 +60,6 @@ namespace Pong_Game
             settingsWindow.Show();
             this.Hide();
         }
+
     }
 }

@@ -6,30 +6,17 @@
         xmlns:local="clr-namespace:Pong_Game"
         mc:Ignorable="d"
         Title="StoreWindow" Height="450" Width="800" 
-        SizeChanged="Store_SizeChanged">
+        SizeChanged="Store_SizeChanged" ResizeMode="NoResize">
     <Grid>
         <Canvas x:Name="Store" Background="Black">
-
-            <Ellipse x:Name="Ball1" Width="40" Height="40" Fill="LightBlue" Canvas.Left="30" Canvas.Top="224" Opacity="0.9"/>
-            <Ellipse x:Name="Ball2" Width="20" Height="20" Fill="LightBlue" Canvas.Left="353" Canvas.Top="260"  Opacity="0.9"/>
-            <Ellipse x:Name="Ball3" Width="20" Height="20" Fill="LightBlue" Canvas.Left="731" Canvas.Top="260" Opacity="0.9" />
-            <Ellipse x:Name="Ball4" Width="40" Height="40" Fill="DeepSkyBlue" Canvas.Left="343" Canvas.Top="369" Opacity="0.9"/>
-            <Ellipse x:Name="Ball5" Width="20" Height="20" Fill="DeepSkyBlue" Canvas.Left="756" Canvas.Top="100" Opacity="0.9" />
-            <Ellipse x:Name="Ball6" Width="20" Height="20" Fill="DeepSkyBlue" Canvas.Left="741" Canvas.Top="359" Opacity="0.9"/>
-            <Ellipse x:Name="Ball7" Width="40" Height="40" Fill="CadetBlue" Canvas.Left="50" Canvas.Top="60" Opacity="0.9"/>
-            <Ellipse x:Name="Ball8" Width="20" Height="20" Fill="CadetBlue" Canvas.Left="405" Canvas.Top="339" Opacity="0.9"/>
-            <Ellipse x:Name="Ball9" Width="20" Height="20" Fill="CadetBlue" Canvas.Left="751" Canvas.Top="184" Opacity="0.9"/>
-            <Ellipse x:Name="Ball10" Width="50" Height="50" Fill="Blue" Canvas.Left="375" Canvas.Top="120" Opacity="0.9"/>
-            <Ellipse x:Name="Ball11" Width="40" Height="40" Fill="Blue" Canvas.Left="30" Canvas.Top="309" Opacity="0.9" />
-            <Ellipse x:Name="Ball12" Width="30" Height="30" Fill="Blue" Canvas.Left="405" Canvas.Top="217" Opacity="0.9"/>
 
             <Rectangle x:Name="background" 
                        Height="350" 
                        Width="702" 
                        Fill="White" 
                        Opacity="0.1"
-                       Canvas.Left="49"
-                       Canvas.Top="49"/>
+                       Canvas.Left="78"
+                       Canvas.Top="49" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
             <Button x:Name="backToStart" 
                     Width="100" 
@@ -60,7 +47,7 @@
                        Height="37" 
                        FontFamily="Arial" 
                        FontSize="35" 
-                       Canvas.Left="129" 
+                       Canvas.Left="164" 
                        Canvas.Top="49" 
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Center"/>
@@ -75,13 +62,14 @@
                        FontSize="35"
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Center" 
-                       Canvas.Left="501" 
+                       Canvas.Left="523" 
                        Canvas.Top="49"/>
 
-            <ScrollViewer x:Name ="Items" Canvas.Left="50" Canvas.Top="100" Height="300" Width="701"
-              VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <ScrollViewer x:Name ="Items" Canvas.Left="78" Canvas.Top="89" Height="300" Width="701"
+              VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+              HorizontalAlignment="Left" VerticalAlignment="Top">
 
-                <Grid Background="Transparent" Margin="0" Height="284" Width="696">
+                <Grid Background="Transparent" Margin="0" Height="295" Width="699">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20"/>
                         <ColumnDefinition Width="120"/>
@@ -148,32 +136,40 @@
                     <Rectangle Fill="IndianRed" Width="10" Height="40" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="20,0,0,0"/>
                     <Rectangle Fill="DarkOrchid" Width="10" Height="40" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Left" Margin="20,0,0,0"/>
 
-                    <Button x:Name="button1" Content="20 Coins" Foreground="White" Background="#FF696363" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button x:Name="button2" Content="40 Coins" Foreground="White" Background="#FF696363" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="60 Coins" Foreground="White" Background="#FF696363" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="80 Coins" Foreground="White" Background="#FF696363" Grid.Column="3" Grid.Row="1" HorizontalAlignment="right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="100 Coins" Foreground="White" Background="#FF696363" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="120 Coins" Foreground="White" Background="#FF696363" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="140 Coins" Foreground="White" Background="#FF696363" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="160 Coins" Foreground="white" Background="#FF696363" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="180 Coins" Foreground="white" Background="#FF696363" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="200 Coins" Foreground="white" Background="#FF696363" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="20 Coins" Tag="DeepPink" Foreground="White" Background="#FF696363" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyPaddleItem"/>
+                    <Button Content="40 Coins" Tag="Indigo"  Foreground="White" Background="#FF696363" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyPaddleItem"/>
+                    <Button Content="60 Coins" Tag="Blue" Foreground="White" Background="#FF696363" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyPaddleItem"/>
+                    <Button Content="80 Coins" Tag="LightGreen" Foreground="White" Background="#FF696363" Grid.Column="3" Grid.Row="1" HorizontalAlignment="right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyPaddleItem"/>
+                    <Button Content="100 Coins" Tag="Olive" Foreground="White" Background="#FF696363" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyPaddleItem"/>
+                    <Button Content="120 Coins" Tag="RosyBrown" Foreground="White" Background="#FF696363" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyPaddleItem"/>
+                    <Button Content="140 Coins" Tag="SandyBrown" Foreground="White" Background="#FF696363" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyPaddleItem"/>
+                    <Button Content="160 Coins" Tag="PaleVioletRed"  Foreground="white" Background="#FF696363" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyPaddleItem"/>
+                    <Button Content="180 Coins" Tag="IndianRed" Foreground="white" Background="#FF696363" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyPaddleItem"/>
+                    <Button Content="200 Coins" Tag="DarkOrchid" Foreground="white" Background="#FF696363" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyPaddleItem"/>
 
-                    <Button Content="20 Coins" Foreground="White" Background="#FF696363" Grid.Column="5" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="40 Coins" Foreground="White" Background="#FF696363" Grid.Column="7" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="60 Coins" Foreground="White" Background="#FF696363" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="80 Coins" Foreground="White" Background="#FF696363" Grid.Column="7" Grid.Row="1" HorizontalAlignment="right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="100 Coins" Foreground="White" Background="#FF696363" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="120 Coins" Foreground="White" Background="#FF696363" Grid.Column="7" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,15,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="140 Coins" Foreground="White" Background="#FF696363" Grid.Column="5" Grid.Row="3" HorizontalAlignment="Left" Margin="46,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="160 Coins" Foreground="white" Background="#FF696363" Grid.Column="7" Grid.Row="3" HorizontalAlignment="Left" Margin="46,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="180 Coins" Foreground="white" Background="#FF696363" Grid.Column="5" Grid.Row="4" HorizontalAlignment="Right" Margin="40,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
-                    <Button Content="200 Coins" Foreground="white" Background="#FF696363" Grid.Column="7" Grid.Row="4" HorizontalAlignment="Center" Margin="40,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyItem"/>
+                    <Button Content="20 Coins" Tag="DarkBlue" Foreground="White" Background="#FF696363" Grid.Column="5" HorizontalAlignment="Left" Margin="56,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyGameBallItem"/>
+                    <Button Content="40 Coins" Tag="Red" Foreground="White" Background="#FF696363" Grid.Column="7" HorizontalAlignment="Left" Margin="56,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyGameBallItem"/>
+                    <Button Content="60 Coins" Tag="ForestGreen" Foreground="White" Background="#FF696363" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Left" Margin="52,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyGameBallItem"/>
+                    <Button Content="80 Coins" Tag="MediumVioletRed" Foreground="White" Background="#FF696363" Grid.Column="7" Grid.Row="1" HorizontalAlignment="Left" Margin="56,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyGameBallItem"/>
+                    <Button Content="100 Coins" Tag="SkyBlue" Foreground="White" Background="#FF696363" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Left" Margin="48,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyGameBallItem"/>
+                    <Button Content="120 Coins" Tag="DarkOrange" Foreground="White" Background="#FF696363" Grid.Column="7" Grid.Row="2" HorizontalAlignment="Left" Margin="48,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyGameBallItem"/>
+                    <Button Content="140 Coins" Tag="Coral" Foreground="White" Background="#FF696363" Grid.Column="5" Grid.Row="3" HorizontalAlignment="Left" Margin="48,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyGameBallItem"/>
+                    <Button Content="160 Coins" Tag="Aqua" Foreground="white" Background="#FF696363" Grid.Column="7" Grid.Row="3" HorizontalAlignment="Left" Margin="46,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyGameBallItem"/>
+                    <Button Content="180 Coins" Tag="Silver" Foreground="white" Background="#FF696363" Grid.Column="5" Grid.Row="4" HorizontalAlignment="Left" Margin="48,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyGameBallItem"/>
+                    <Button Content="200 Coins" Tag="gold" Foreground="white" Background="#FF696363" Grid.Column="7" Grid.Row="4" HorizontalAlignment="Center" Margin="40,0,0,0" VerticalAlignment="Center" FontFamily="Arial" FontSize="14" Click="buyGameBallItem"/>
                 </Grid>
             </ScrollViewer>
 
-            <Button x:Name="AdjustLooks" Content="Equipe new Items" Background="DarkRed" HorizontalAlignment="Center" Canvas.Top="54" Height="40" Foreground="White" FontFamily="Arial" FontSize="12" Click="goToItemEquipment"/>
-            
+            <Button x:Name="AdjustLooks" 
+                    Content="Equipe new Items" 
+                    Background="DarkRed" 
+                    HorizontalAlignment="Center" 
+                    Canvas.Top="54" 
+                    Height="40" 
+                    Foreground="White" 
+                    FontFamily="Arial" 
+                    FontSize="12" 
+                    Click="goToItemEquipment"/>
         </Canvas>
     </Grid>
 </Window>

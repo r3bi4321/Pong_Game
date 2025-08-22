@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Pong_Game"
         mc:Ignorable="d"
         Title="SinglePlayer" Height="450" Width="800"
-        SizeChanged="Windowchange">
+        SizeChanged="Windowchange" ResizeMode="NoResize">
     <Grid>
         <Canvas x:Name="SinglePlayerWindow" Background="Black">
             <TextBlock x:Name="ScorePlayer1" 

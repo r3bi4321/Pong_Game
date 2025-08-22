@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pong_Game"
         mc:Ignorable="d"
-        Title="Register" Height="450" Width="800">
+        Title="Register" Height="450" Width="800"  ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -19,35 +19,38 @@
                        Height="250" 
                        Canvas.Left="225" 
                        Canvas.Top="92"/>
-            <TextBox Height="20" 
+            <TextBox x:Name="Username"
+                     Height="20" 
                      Width="250" 
                      Canvas.Left="275" 
                      Canvas.Top="170" 
                      Text="Username" 
                      FontFamily="Arial" 
-                     FontSize="15"/>
-            <TextBox Height="20" 
+                     FontSize="15" GotFocus="registerUsername"/>
+            <TextBox x:Name="Password"
+                     Height="20" 
                      Width="250" 
                      Canvas.Left="275" 
                      Canvas.Top="207" 
                      Text="Password" 
                      FontFamily="Arial" 
-                     FontSize="15"/>
-            <TextBox Width="250" 
+                     FontSize="15" GotFocus="setPassword"/>
+            <TextBox x:Name="ConfirmPassword"
+                     Width="250" 
                      Height="20" 
                      Canvas.Left="275" 
                      Canvas.Top="244" 
                      Text="Confirm Password" 
                      FontFamily="Arial" 
-                     FontSize="15"
-                     TextChanged="TextBox_TextChanged"/>
+                     FontSize="15" GotFocus="confirmPassword"
+                     />
             <TextBlock Text="Register" 
                        FontFamily="Arial" 
                        FontSize="50" 
                        Foreground="white" 
                        Canvas.Left="307" 
                        Canvas.Top="92"/>
-            <Button x:Name="Register" 
+            <Button x:Name="RegistrationButton" 
                     Width="90" 
                     Height="20" 
                     Background="DarkRed" 

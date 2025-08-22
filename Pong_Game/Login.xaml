@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pong_Game"
         mc:Ignorable="d"
-        Title="Login" Height="450" Width="800">
+        Title="Login" Height="450" Width="800"  ResizeMode="NoResize">
 
     <Grid>
         <Canvas Background="black" x:Name="LoginWindow">
@@ -21,9 +21,9 @@
                      Height="30" 
                      Canvas.Left="275" 
                      Canvas.Top="182" 
-                     Text="Username" 
+                     Text="Enter Username" 
                      FontSize="20" 
-                     FontFamily="Arial"/>
+                     FontFamily="Arial" GotFocus="enterUsername"/>
             <TextBox x:Name="Password" 
                      Width="250" 
                      Height="30" 
@@ -31,7 +31,7 @@
                      Canvas.Top="230" 
                      Text="Password" 
                      FontSize="20" 
-                     FontFamily="Arial" />
+                     FontFamily="Arial" GotFocus="enterPassword" />
             <TextBlock Text="Login" 
                        Foreground="White" 
                        FontFamily="Arial" 
@@ -50,9 +50,27 @@
                     BorderBrush="Goldenrod"
                     BorderThickness="2.5" 
                     Click="LoginCheck"/>
-            <Button x:Name="BackToStart" Height="40" Width="90" Foreground="White" Background="DarkRed" Content="Back to Start" FontFamily="Arial" FontSize="13"/>
-            <Button x:Name="Register" Content="Register" Width="100" Height="25" Background="DarkRed" Foreground="White" FontFamily="Arial" FontSize="15" BorderBrush="Goldenrod" BorderThickness="2.5" Canvas.Left="350" Canvas.Top="304" Click="Register_Click"/>
+            <Button x:Name="BackToStart" 
+                    Height="40" 
+                    Width="90" 
+                    Foreground="White" 
+                    Background="DarkRed" 
+                    Content="Back to Start" 
+                    FontFamily="Arial" 
+                    FontSize="13" Click="BackToStart_Click"/>
+            <Button x:Name="Register" 
+                    Content="Register" 
+                    Width="100" 
+                    Height="25" 
+                    Background="DarkRed" 
+                    Foreground="White" 
+                    FontFamily="Arial" 
+                    FontSize="15" 
+                    BorderBrush="Goldenrod" 
+                    BorderThickness="2.5" 
+                    Canvas.Left="350" 
+                    Canvas.Top="304" 
+                    Click="Register_Click"/>
         </Canvas>
-
     </Grid>
 </Window>

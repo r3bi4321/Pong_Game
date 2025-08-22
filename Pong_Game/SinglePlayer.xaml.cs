@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,14 +30,22 @@ namespace Pong_Game
         private int lastTouchedBy = 0;
         public double nextBallX;
         private double nextBallY;
-        private int ImpactX;
-        private int ImpactY;
+        private readonly int ImpactX;
+        private readonly int ImpactY;
+        private readonly double startSpeed;
+        private readonly double pointsNeeded;
+        private readonly IMongoCollection<BsonDocument> ResultCollection;
 
-        private int botThinkCounter = 0;
-
-        public SinglePlayer()
+        public SinglePlayer(double startSpeedValue, double pointsToWin)
         {
             InitializeComponent();
+
+            GameBall.Fill = AdjustLooks.SelectedBallBrush;
+            Player1.Fill = AdjustLooks.SelectedPaddleBrush;
+            Bot.Fill = AdjustLooks.SelectedPaddleBrush;
+
+            startSpeed = startSpeedValue;
+            pointsNeeded = pointsToWin;
 
             gameTimer = new DispatcherTimer
             {
@@ -56,6 +66,10 @@ namespace Pong_Game
 
             this.Focusable = true;
             this.Focus();
+
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("PongDB");
+            ResultCollection = database.GetCollection<BsonDocument>("Results");
         }
 
         public void KeyPressedForMovement(object sender, KeyEventArgs e)
@@ -65,8 +79,9 @@ namespace Pong_Game
 
             if (e.Key == Key.Space && !gameGoing)
             {
-                gameGoing = true;
-                gameTimer.Start();
+                ResetGame();           
+                gameGoing = true;      
+                gameTimer.Start();     
             }
         }
 
@@ -96,16 +111,7 @@ namespace Pong_Game
 
             if (ballSpeedX > 0)
             {
-                if (botThinkCounter <= 0)
-                {
-                    targetY = PredictBallImpact() + rnd.Next(-55, 55);
-                    botThinkCounter = 5;
-                }
-                else
-                {
-                    targetY = currentBotY;
-                    botThinkCounter--;
-                }
+                targetY = Canvas.GetTop(GameBall) + GameBall.Height / 2;
             }
             else
             {
@@ -113,15 +119,10 @@ namespace Pong_Game
             }
 
             SetBotPosition(currentBotY, targetY);
+
             BallAndCoinUpdate();
         }
 
-        public void MovementPlayer()
-        {
-            double newY1 = Canvas.GetTop(Player1) + SpeedY1;
-            newY1 = Math.Clamp(newY1, 0, SinglePlayerWindow.ActualHeight - Player1.Height);
-            Canvas.SetTop(Player1, newY1);
-        }
         public void SetBotPosition(double currentBotY, double targetY)
         {
             double botDiff = targetY - currentBotY;
@@ -133,10 +134,17 @@ namespace Pong_Game
             Canvas.SetTop(Bot, newY2);
         }
 
+        public void MovementPlayer()
+        {
+            double newY1 = Canvas.GetTop(Player1) + SpeedY1;
+            newY1 = Math.Clamp(newY1, 0, SinglePlayerWindow.ActualHeight - Player1.Height);
+            Canvas.SetTop(Player1, newY1);
+        }
+
         private void BallAndCoinUpdate()
         {
-             nextBallX = Canvas.GetLeft(GameBall) + ballSpeedX;
-             nextBallY = Canvas.GetTop(GameBall) + ballSpeedY;
+            nextBallX = Canvas.GetLeft(GameBall) + ballSpeedX;
+            nextBallY = Canvas.GetTop(GameBall) + ballSpeedY;
 
             if (nextBallY <= 0 || nextBallY >= SinglePlayerWindow.ActualHeight - GameBall.Height)
                 ballSpeedY = -ballSpeedY;
@@ -163,6 +171,11 @@ namespace Pong_Game
             {
                 scorePlayer1++;
                 UpdateScoreboard();
+                if (scorePlayer1 >= pointsNeeded)
+                {
+                    EndGame(1);
+                    return;
+                }
                 gameGoing = false;
                 return;
             }
@@ -171,6 +184,11 @@ namespace Pong_Game
             {
                 scorePlayer2++;
                 UpdateScoreboard();
+                if (scorePlayer2 >= pointsNeeded)
+                {
+                    EndGame(2);
+                    return;
+                }
                 gameGoing = false;
                 return;
             }
@@ -207,31 +225,18 @@ namespace Pong_Game
             Canvas.SetTop(GameBall, nextBallY);
         }
 
-        private double PredictBallImpact()
+        private void EndGame(int winningPlayer)
         {
-            do
-            {
-                int BallX1 = (int)Canvas.GetLeft(GameBall);
-                int BallY1 = (int)Canvas.GetBottom(GameBall);
-                int sideB = (int)SinglePlayerWindow.ActualHeight - BallY1;
+            gameTimer.Stop();
+            gameGoing = false;
 
-                int climbe = (int)((nextBallY - BallY1) / (nextBallX - BallX1));
-                int angle = (int)(Math.Atan(climbe));
-                int sideC = (int)(Math.Tan(angle) * sideB);
+            saveResultToDB(scorePlayer1, scorePlayer2);
 
-                ImpactX = (int)(BallX1 + sideC);   
+            this.Visibility = Visibility.Hidden;
 
-                if(climbe< 0)
-                {
-                    ImpactY = (int)(SinglePlayerWindow.ActualHeight - sideB);
-                }
-                else 
-                {
-                    ImpactY = (int)(Canvas.GetBottom(Bot) + sideB);
-                }
- 
-                    return (ImpactX);
-            } while (ImpactX < 780); 
+            string winnerText = winningPlayer == 1 ? "Spieler 1" : "Bot";
+            Endpage endPage = new(winnerText);
+            endPage.Show();
         }
 
         private void SpawnCoin(object sender, EventArgs e)
@@ -269,10 +274,12 @@ namespace Pong_Game
             Canvas.SetLeft(GameBall, (SinglePlayerWindow.ActualWidth - GameBall.Width) / 2);
             Canvas.SetTop(GameBall, (SinglePlayerWindow.ActualHeight - GameBall.Height) / 2);
 
-            ballSpeedX = 4;
-            ballSpeedY = 4;
+            ballSpeedX = startSpeed;
+            ballSpeedY = startSpeed;
+
             SpeedY1 = 0;
-            gameGoing = false;
+
+          
         }
 
         private void Windowchange(object sender, SizeChangedEventArgs e)
@@ -284,6 +291,25 @@ namespace Pong_Game
             double scoreRightPos = SinglePlayerWindow.ActualWidth - ScoreBot.Width - 40;
             if (scoreRightPos < 0) scoreRightPos = 0;
             Canvas.SetLeft(ScoreBot, scoreRightPos);
+        }
+
+        public void saveResultToDB(int scorePlayer1, int scorePlayer2)
+        {
+            try
+            {
+                var resultDoc = new BsonDocument
+                {
+                    { "Player1Score", scorePlayer1 },
+                    { "Player2Score", scorePlayer2 },
+                    { "Date", DateTime.UtcNow.AddHours(2)}
+                };
+
+                ResultCollection.InsertOne(resultDoc);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error saving result: " + ex.Message);
+            }
         }
     }
 }
