@@ -1,7 +1,5 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
@@ -42,7 +40,6 @@ namespace Pong_Game
             return;
         }
 
-      
         private void Open2PlayerWindow(object sender, RoutedEventArgs e)
         {
             try
@@ -58,13 +55,6 @@ namespace Pong_Game
             {
                 MessageBox.Show("Invalid Number", "Mistake", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-        }
-
-        private void OpenSettingWindow(object sender, RoutedEventArgs e)
-        {
-            SettingsWindow settingsWindow = new();
-            this.Visibility = Visibility.Hidden;
-            settingsWindow.Show();
         }
 
         private void OpenWindowStore(object sender, RoutedEventArgs e)
@@ -114,13 +104,13 @@ namespace Pong_Game
         private void InputBallSpeed(object sender, RoutedEventArgs e)
         {
             TextBox? ballSpeed = sender as TextBox;
-            ballSpeed.Clear(); 
+            ballSpeed.Clear();
         }
 
         private void enterNeededPoints(object sender, RoutedEventArgs e)
         {
             TextBox? neededPoints = sender as TextBox;
-            neededPoints.Clear(); 
+            neededPoints.Clear();
         }
     }
 }

@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using Pong_Game.Helpers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using MongoDB.Bson;
-using MongoDB.Driver;
 
 namespace Pong_Game
 {
@@ -35,6 +34,7 @@ namespace Pong_Game
         private int coinCount2;
         private int lastTouchedBy = 0;
         private readonly IMongoCollection<BsonDocument> ResultCollection;
+       
 
         public MainWindow(int startSpeedValue, int pointsToWin)
         {
@@ -43,6 +43,7 @@ namespace Pong_Game
             GameBall.Fill = AdjustLooks.SelectedBallBrush;
             Player1.Fill = AdjustLooks.SelectedPaddleBrush;
             Player2.Fill = AdjustLooks.SelectedPaddleBrush;
+            Player1.Name = Session.Username;
 
             startSpeed = startSpeedValue;
             pointsNeeded = pointsToWin;
@@ -220,6 +221,7 @@ namespace Pong_Game
             gameGoing = false;
 
             saveResultToDB(scorePlayer1, scorePlayer2);
+            CoinManager.AddCoinsToUser(Session.Username, coinCount1);
 
             this.Visibility = Visibility.Hidden;
 
@@ -314,7 +316,6 @@ namespace Pong_Game
                 };
 
                 ResultCollection.InsertOne(resultDoc);
-
             }
             catch (Exception ex)
             {

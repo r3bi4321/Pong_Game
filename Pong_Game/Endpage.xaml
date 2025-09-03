@@ -8,7 +8,7 @@
         Title="Endpage" Height="450" Width="800"  ResizeMode="NoResize">
     <Grid>
         <Canvas x:Name="endPage" Background="Black">
-         
+
             <TextBlock x:Name="titleEndgame" Text="Game over" Foreground="White" FontFamily="Arial" FontSize="50" Canvas.Left="276" Canvas.Top="53"/>
             <Button x:Name="playAgain" 
                     Width="140" 
@@ -46,25 +46,12 @@
                     FontFamily="Arial" 
                     FontSize="20" 
                     HorizontalAlignment="Left" 
-                    Canvas.Left="710" 
-                    VerticalAlignment="Center" 
-                    Canvas.Top="50"
+                    Canvas.Left="700" 
+                    VerticalAlignment="Top" 
+                    Canvas.Top="10"
                     BorderThickness="2" 
                     BorderBrush="Goldenrod" Click="goToStore_Click"/>
-            <Button x:Name="Settings" 
-                    Width="90" 
-                    Height="40" 
-                    Background="DarkRed"
-                    Content="Settings"
-                    FontSize="20" 
-                    Foreground="White" 
-                    Canvas.Top="0" 
-                    Canvas.Right="0" 
-                    HorizontalAlignment="Center" 
-                    Canvas.Left="710" 
-                    VerticalAlignment="Center"
-                    BorderThickness="2" 
-                    BorderBrush="Goldenrod" Click="Settings_Click"/>
+
             <Grid Canvas.Left="247" Canvas.Top="115">
                 <Rectangle x:Name="Results" Fill="White" Opacity="0.1" Width="309" Height="175" Canvas.Left="247" Canvas.Top="115" />
                 <TextBlock Text="Past Winners" Foreground="White" FontFamily="Arial" FontSize="14" Margin="5,5,0,0"/>

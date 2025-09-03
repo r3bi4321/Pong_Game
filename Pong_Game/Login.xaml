@@ -24,14 +24,13 @@
                      Text="Enter Username" 
                      FontSize="20" 
                      FontFamily="Arial" GotFocus="enterUsername"/>
-            <TextBox x:Name="Password" 
+            <PasswordBox x:Name="Password" 
                      Width="250" 
                      Height="30" 
                      Canvas.Left="275" 
                      Canvas.Top="230" 
-                     Text="Password" 
                      FontSize="20" 
-                     FontFamily="Arial" GotFocus="enterPassword" />
+                     FontFamily="Arial" />
             <TextBlock Text="Login" 
                        Foreground="White" 
                        FontFamily="Arial" 

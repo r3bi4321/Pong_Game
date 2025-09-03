@@ -1,22 +1,21 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver;
 using System.Windows;
 using System.Windows.Controls;
-using MongoDB.Bson;
-using MongoDB.Driver;
 
 namespace Pong_Game
 {
     public partial class Register : Window
     {
-        private readonly IMongoCollection<BsonDocument> usersCollection;
+        private readonly IMongoCollection<User> usersCollection;
 
         public Register()
         {
             InitializeComponent();
 
-            var client = new MongoClient("mongodb://localhost:27017"); 
+            var client = new MongoClient("mongodb://localhost:27017");
             var database = client.GetDatabase("PongDB");
-            usersCollection = database.GetCollection<BsonDocument>("Login");
+            usersCollection = database.GetCollection<User>("Login");
         }
 
         private void RegisterUser(object sender, RoutedEventArgs e)
@@ -36,25 +35,24 @@ namespace Pong_Game
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
-           
-            var existingUser = usersCollection.Find(u => u["Username"] == username).FirstOrDefault();
+
+            var existingUser = usersCollection.Find(u => u.Username == username).FirstOrDefault();
             if (existingUser != null)
             {
                 MessageBox.Show("Username already exists.");
                 return;
             }
 
-            var userDoc = new BsonDocument
+            var newUser = new User
             {
-
-                { "Username", username },
-                { "Password", password },
-                {"Coins", 0 }
+                Username = username,
+                Password = password,
+                Coins = 0
             };
 
-            usersCollection.InsertOne(userDoc);
+            usersCollection.InsertOne(newUser);
             MessageBox.Show("Registration successful!");
-         
+
             Login login = new();
             this.Visibility = Visibility.Hidden;
             login.Show();
@@ -69,20 +67,28 @@ namespace Pong_Game
 
         private void registerUsername(object sender, RoutedEventArgs e)
         {
-            TextBox registerUser = sender as TextBox;
-            registerUser.Clear(); 
+            if (sender is TextBox tb) tb.Clear();
         }
 
         private void setPassword(object sender, RoutedEventArgs e)
         {
-            TextBox setPassword = sender as TextBox;
-            setPassword.Clear(); 
+            if (sender is TextBox tb) tb.Clear();
         }
-
         private void confirmPassword(object sender, RoutedEventArgs e)
         {
-            TextBox confirmPassword = sender as TextBox;
-            confirmPassword.Clear(); 
+            if (sender is TextBox tb) tb.Clear();
         }
+    }
+
+    public class User
+    {
+        [BsonElement("Username")]
+        public string Username { get; set; } = string.Empty;
+
+        [BsonElement("Password")]
+        public string Password { get; set; } = string.Empty;
+
+        [BsonElement("Coins")]
+        public int Coins { get; set; }
     }
 }

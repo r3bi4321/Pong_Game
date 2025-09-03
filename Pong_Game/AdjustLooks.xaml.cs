@@ -1,9 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using MongoDB.Driver;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -18,8 +13,6 @@ namespace Pong_Game
     {
         private readonly IMongoCollection<StoreItem> BallDesignCollection;
         private readonly IMongoCollection<StoreItem> PaddleDesignCollection;
-
-
         public static Brush SelectedBallBrush { get; private set; } = Brushes.White;
         public static Brush SelectedPaddleBrush { get; private set; } = Brushes.White;
 
@@ -66,14 +59,14 @@ namespace Pong_Game
                 }
                 catch
                 {
-                    SelectedBallBrush = Brushes.White; 
+                    SelectedBallBrush = Brushes.GreenYellow;
                 }
 
-                MessageBox.Show($"Ball gesetzt auf: {selectedBall.Tag}");
+                MessageBox.Show($"Ball set to: {selectedBall.Tag}");
             }
         }
 
-        public void changePaddle()
+        public void ChangePaddle()
         {
             var myItems = PaddleDesignCollection
                 .Find(x => x.Username == Session.Username && x.Bought)
@@ -90,109 +83,201 @@ namespace Pong_Game
                 }
                 catch
                 {
-                    SelectedPaddleBrush = Brushes.White;
+                    SelectedPaddleBrush = Brushes.HotPink;
                 }
 
-                MessageBox.Show($"Paddle gesetzt auf: {selectedPaddle.Tag}");
+                MessageBox.Show($"Paddle set to: {selectedPaddle.Tag}");
             }
         }
 
-
         private void LoadPlayerItems()
         {
-            var ballItems = BallDesignCollection
-                .Find(x => x.Username == Session.Username && x.Bought)
-                .ToList();
+            LoadPaddleItems();
+            LoadBallItems();
+        }
 
+        private void LoadPaddleItems()
+        {
             var paddleItems = PaddleDesignCollection
                 .Find(x => x.Username == Session.Username && x.Bought)
                 .ToList();
 
-            int col = 0;
             int row = 0;
-
-      
             var validColumns = GridDisplay.ColumnDefinitions
                 .Select((cd, index) => new { cd, index })
                 .Where(x => x.cd.Width.Value == 100)
                 .Select(x => x.index)
                 .ToList();
 
-            foreach (var index in validColumns)
+            int half = validColumns.Count / 2;
+            var paddleColumns = validColumns.Take(half).ToList();
+            int paddleColsCount = paddleColumns.Count;
+
+            for (int i = 0; i < paddleItems.Count; i++)
             {
-                if (ballItems.Count > 0)
+                var item = paddleItems[i];
+                int colIndex = paddleColumns[i % paddleColsCount];
+                int currentRow = (i / paddleColsCount);
+
+                var stack = new StackPanel
                 {
-                    var item = ballItems[0];
-                    ballItems.RemoveAt(0);
+                    Orientation = Orientation.Vertical,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
 
-                    
-                    var ellipse = new Ellipse
-                    {
-                        Width = 25,
-                        Height = 25,
-                        Margin = new Thickness(5),
-                        Fill = (Brush)new BrushConverter().ConvertFromString(item.Tag)
-                    };
-                    Grid.SetColumn(ellipse, index);
-                    Grid.SetRow(ellipse, row);
-                    GridDisplay.Children.Add(ellipse);
-
-                    
-                    var btn = new Button
-                    {
-                        Content = "Equip",
-                        Width = 60,
-                        Height = 25,
-                        Margin = new Thickness(5)
-                    };
-                    Grid.SetColumn(btn, index);
-                    Grid.SetRow(btn, row + 1); 
-                    GridDisplay.Children.Add(btn);
-
-                   
-                    btn.Click += (s, e) =>
-                    {
-                        SelectedBallBrush = ellipse.Fill;
-                        MessageBox.Show($"Ball ausgewählt: {item.Tag}");
-                    };
-                }
-
-                if (paddleItems.Count > 0)
+                var rect = new Rectangle
                 {
-                    var item = paddleItems[0];
-                    paddleItems.RemoveAt(0);
+                    Width = 15,
+                    Height = 40,
+                    Fill = (Brush)new BrushConverter().ConvertFromString(item.Tag)
+                };
 
-                    var rect = new Rectangle
-                    {
-                        Width = 20,
-                        Height = 50,
-                        Margin = new Thickness(5),
-                        Fill = (Brush)new BrushConverter().ConvertFromString(item.Tag)
-                    };
-                    Grid.SetColumn(rect, index);
-                    Grid.SetRow(rect, row + 2); 
-                    GridDisplay.Children.Add(rect);
+                var btn = new Button
+                {
+                    Content = item.Equipped ? "Equipped" : "Equip",
+                    Width = 80,
+                    Height = 20,
+                    Margin = new Thickness(0, 5, 0, 0),
+                    Background = item.Equipped ? Brushes.DarkRed : Brushes.LightGray,
+                    Foreground = item.Equipped ? Brushes.White : Brushes.Black,
+                    Tag = "PaddleButton"
+                };
 
-                    var btn = new Button
-                    {
-                        Content = "Equip",
-                        Width = 60,
-                        Height = 25,
-                        Margin = new Thickness(5)
-                    };
-                    Grid.SetColumn(btn, index);
-                    Grid.SetRow(btn, row + 3);
-                    GridDisplay.Children.Add(btn);
+                stack.Children.Add(rect);
+                stack.Children.Add(btn);
 
-                    btn.Click += (s, e) =>
+                Grid.SetColumn(stack, colIndex);
+                Grid.SetRow(stack, currentRow);
+                Grid.SetRowSpan(stack, 2); 
+                GridDisplay.Children.Add(stack);
+
+
+                if (item.Equipped)
+                    SelectedPaddleBrush = rect.Fill;
+
+                btn.Click += (s, e) =>
+                {
+                    var filter = Builders<StoreItem>.Filter.Eq(x => x.Username, Session.Username);
+                    var update = Builders<StoreItem>.Update.Set(x => x.Equipped, false);
+                    PaddleDesignCollection.UpdateMany(filter, update);
+
+                    var filterEquip = Builders<StoreItem>.Filter.And(
+                        Builders<StoreItem>.Filter.Eq(x => x.Username, Session.Username),
+                        Builders<StoreItem>.Filter.Eq(x => x.Tag, item.Tag)
+                    );
+                    var updateEquip = Builders<StoreItem>.Update.Set(x => x.Equipped, true);
+                    PaddleDesignCollection.UpdateOne(filterEquip, updateEquip);
+
+                    foreach (var child in GridDisplay.Children.OfType<StackPanel>())
                     {
-                        SelectedPaddleBrush = rect.Fill;
-                        MessageBox.Show($"Paddle ausgewählt: {item.Tag}");
-                    };
-                }
+                        foreach (var b in child.Children.OfType<Button>().Where(b => (string)b.Tag == "PaddleButton"))
+                        {
+                            b.Content = "Equip";
+                            b.Background = Brushes.LightGray;
+                            b.Foreground = Brushes.Black;
+                        }
+                    }
+
+                    btn.Content = "Equipped";
+                    btn.Background = Brushes.DarkRed;
+                    btn.Foreground = Brushes.White;
+
+                    SelectedPaddleBrush = rect.Fill;
+                    MessageBox.Show($"Paddle selected: {item.Tag}");
+                };
             }
         }
 
 
+        private void LoadBallItems()
+        {
+            var ballItems = BallDesignCollection
+                .Find(x => x.Username == Session.Username && x.Bought)
+                .ToList();
+
+            var validColumns = GridDisplay.ColumnDefinitions
+                .Select((cd, index) => new { cd, index })
+                .Where(x => x.cd.Width.Value == 100)
+                .Select(x => x.index)
+                .ToList();
+
+            int half = validColumns.Count / 2;
+            var ballColumns = validColumns.Skip(half).ToList();
+            int ballColsCount = ballColumns.Count;
+
+            for (int i = 0; i < ballItems.Count; i++)
+            {
+                var item = ballItems[i];
+                int colIndex = ballColumns[i % ballColsCount];
+                int currentRow = (i / ballColsCount);
+
+                var stack = new StackPanel
+                {
+                    Orientation = Orientation.Vertical,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+
+                var ellipse = new Ellipse
+                {
+                    Width = 25,
+                    Height = 25,
+                    Fill = (Brush)new BrushConverter().ConvertFromString(item.Tag)
+                };
+
+                var btn = new Button
+                {
+                    Content = item.Equipped ? "Equipped" : "Equip",
+                    Width = 80,
+                    Height = 20,
+                    Margin = new Thickness(0, 5, 0, 0),
+                    Background = item.Equipped ? Brushes.DarkRed : Brushes.LightGray,
+                    Foreground = item.Equipped ? Brushes.White : Brushes.Black,
+                    Tag = "BallButton"
+                };
+
+                stack.Children.Add(ellipse);
+                stack.Children.Add(btn);
+
+                Grid.SetColumn(stack, colIndex);
+                Grid.SetRow(stack, currentRow);
+                Grid.SetRowSpan(stack, 2);
+                GridDisplay.Children.Add(stack);
+
+
+                if (item.Equipped)
+                    SelectedBallBrush = ellipse.Fill;
+
+                btn.Click += (s, e) =>
+                {
+                    var filter = Builders<StoreItem>.Filter.Eq(x => x.Username, Session.Username);
+                    var update = Builders<StoreItem>.Update.Set(x => x.Equipped, false);
+                    BallDesignCollection.UpdateMany(filter, update);
+
+                    var filterEquip = Builders<StoreItem>.Filter.And(
+                        Builders<StoreItem>.Filter.Eq(x => x.Username, Session.Username),
+                        Builders<StoreItem>.Filter.Eq(x => x.Tag, item.Tag)
+                    );
+                    var updateEquip = Builders<StoreItem>.Update.Set(x => x.Equipped, true);
+                    BallDesignCollection.UpdateOne(filterEquip, updateEquip);
+
+                    foreach (var child in GridDisplay.Children.OfType<StackPanel>())
+                    {
+                        foreach (var b in child.Children.OfType<Button>().Where(b => (string)b.Tag == "BallButton"))
+                        {
+                            b.Content = "Equip";
+                            b.Background = Brushes.LightGray;
+                            b.Foreground = Brushes.Black;
+                        }
+                    }
+
+                    btn.Content = "Equipped";
+                    btn.Background = Brushes.DarkRed;
+                    btn.Foreground = Brushes.White;
+
+                    SelectedBallBrush = ellipse.Fill;
+                    MessageBox.Show($"Ball selected: {item.Tag}");
+                };
+            }
+        }
     }
 }

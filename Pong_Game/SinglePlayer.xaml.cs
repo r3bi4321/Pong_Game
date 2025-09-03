@@ -1,7 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
+using Pong_Game.Helpers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -35,6 +34,9 @@ namespace Pong_Game
         private readonly double startSpeed;
         private readonly double pointsNeeded;
         private readonly IMongoCollection<BsonDocument> ResultCollection;
+        private double botErrorOffset = 0;
+        private int botErrorCounter = 0;
+        private readonly Random rng = new Random();
 
         public SinglePlayer(double startSpeedValue, double pointsToWin)
         {
@@ -63,7 +65,6 @@ namespace Pong_Game
             this.KeyDown += KeyPressedForMovement;
             this.KeyUp += KeyboardUp;
             this.SizeChanged += Windowchange;
-
             this.Focusable = true;
             this.Focus();
 
@@ -79,9 +80,9 @@ namespace Pong_Game
 
             if (e.Key == Key.Space && !gameGoing)
             {
-                ResetGame();           
-                gameGoing = true;      
-                gameTimer.Start();     
+                ResetGame();
+                gameGoing = true;
+                gameTimer.Start();
             }
         }
 
@@ -125,8 +126,18 @@ namespace Pong_Game
 
         public void SetBotPosition(double currentBotY, double targetY)
         {
-            double botDiff = targetY - currentBotY;
-            double maxBotSpeed = 5;
+          
+            botErrorCounter++;
+            if (botErrorCounter > 50)
+            {
+                botErrorOffset = rng.NextDouble() * 80 - 20; 
+                botErrorCounter = 0;
+            }
+
+            double adjustedTargetY = targetY + botErrorOffset;
+
+            double botDiff = adjustedTargetY - currentBotY;
+            double maxBotSpeed = 4; 
             botDiff = Math.Clamp(botDiff, -maxBotSpeed, maxBotSpeed);
 
             double newY2 = Canvas.GetTop(Bot) + botDiff;
@@ -231,9 +242,9 @@ namespace Pong_Game
             gameGoing = false;
 
             saveResultToDB(scorePlayer1, scorePlayer2);
+            CoinManager.AddCoinsToUser(Session.Username, coinCount1);
 
             this.Visibility = Visibility.Hidden;
-
             string winnerText = winningPlayer == 1 ? "Spieler 1" : "Bot";
             Endpage endPage = new(winnerText);
             endPage.Show();
@@ -268,7 +279,6 @@ namespace Pong_Game
         {
             Canvas.SetLeft(Player1, 0);
             Canvas.SetLeft(Bot, SinglePlayerWindow.ActualWidth - Bot.Width);
-
             Canvas.SetTop(Player1, (SinglePlayerWindow.ActualHeight - Player1.Height) / 2);
             Canvas.SetTop(Bot, (SinglePlayerWindow.ActualHeight - Bot.Height) / 2);
             Canvas.SetLeft(GameBall, (SinglePlayerWindow.ActualWidth - GameBall.Width) / 2);
@@ -278,8 +288,6 @@ namespace Pong_Game
             ballSpeedY = startSpeed;
 
             SpeedY1 = 0;
-
-          
         }
 
         private void Windowchange(object sender, SizeChangedEventArgs e)
