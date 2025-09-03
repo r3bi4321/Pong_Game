@@ -1,0 +1,87 @@
+﻿<Window x:Class="Pong_Game.Register"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pong_Game"
+        mc:Ignorable="d"
+        Title="Register" Height="450" Width="800"  ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="19*"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Background="Black" x:Name="RegistrationWindow" Grid.ColumnSpan="2">
+            <Rectangle x:Name="Background" 
+                       Fill="White" 
+                       Opacity="0.07" 
+                       Width="350" 
+                       Height="250" 
+                       Canvas.Left="225" 
+                       Canvas.Top="92"/>
+            <TextBox x:Name="Username"
+                     Height="20" 
+                     Width="250" 
+                     Canvas.Left="275" 
+                     Canvas.Top="170" 
+                     Text="Username" 
+                     FontFamily="Arial" 
+                     FontSize="15" GotFocus="registerUsername"/>
+            <TextBox x:Name="Password"
+                     Height="20" 
+                     Width="250" 
+                     Canvas.Left="275" 
+                     Canvas.Top="207" 
+                     Text="Password" 
+                     FontFamily="Arial" 
+                     FontSize="15" GotFocus="setPassword"/>
+            <TextBox x:Name="ConfirmPassword"
+                     Width="250" 
+                     Height="20" 
+                     Canvas.Left="275" 
+                     Canvas.Top="244" 
+                     Text="Confirm Password" 
+                     FontFamily="Arial" 
+                     FontSize="15" GotFocus="confirmPassword"
+                     />
+            <TextBlock Text="Register" 
+                       FontFamily="Arial" 
+                       FontSize="50" 
+                       Foreground="white" 
+                       Canvas.Left="307" 
+                       Canvas.Top="92"/>
+            <Button x:Name="RegistrationButton" 
+                    Width="90" 
+                    Height="20" 
+                    Background="DarkRed" 
+                    Content="Register" 
+                    Foreground="White" 
+                    Canvas.Left="355" 
+                    Canvas.Top="279" 
+                    BorderBrush="Goldenrod" 
+                    BorderThickness="1.75" 
+                    FontFamily="Arial" 
+                    FontSize="12" 
+                    Click="RegisterUser"/>
+            <Button x:Name="Login" 
+                    Width="90" 
+                    Height="20" 
+                    Background="DarkRed" 
+                    Foreground="White" 
+                    Content="Login" 
+                    FontFamily="Arial" 
+                    FontSize="13" 
+                    Canvas.Left="355" 
+                    Canvas.Top="304" 
+                    BorderBrush="Goldenrod" 
+                    BorderThickness="1.75" Click="goToLogin"/>
+            <Button x:Name="BackToStart"
+                    Content="Back to Start" 
+                    Background="DarkRed" 
+                    Foreground="White" 
+                    Height="35" 
+                    FontFamily="Arial" 
+                    FontSize="13"/>
+        </Canvas>
+    </Grid>
+</Window>

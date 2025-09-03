@@ -1,0 +1,64 @@
+﻿<Window x:Class="Pong_Game.SinglePlayer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pong_Game"
+        mc:Ignorable="d"
+        Title="SinglePlayer" Height="450" Width="800"
+        SizeChanged="Windowchange" ResizeMode="NoResize">
+    <Grid>
+        <Canvas x:Name="SinglePlayerWindow" Background="Black">
+            <TextBlock x:Name="ScorePlayer1" 
+                Canvas.Left="40"
+                Width="42" 
+                Height="22" 
+                Background="LightSkyBlue" 
+                Text="0" 
+                FontFamily="Arial"
+                FontSize="20" 
+                TextAlignment="Center"/>
+
+            <TextBlock x:Name="ScoreBot" 
+                Width="42" 
+                Height="22" 
+                Background="LightSkyBlue"
+                Text="0" 
+                FontFamily="Arial"
+                FontSize="20" 
+                TextAlignment="Center"/>
+
+            <Rectangle x:Name="Player1"
+                Width="20" 
+                Height="100"
+                Fill="HotPink"
+                Canvas.Left="0" 
+                Canvas.Top="200"/>
+
+            <Rectangle x:Name="Bot" 
+                Width="20" 
+                Height="100" 
+                Fill="HotPink"
+                Canvas.Top="200"/>
+
+            <Ellipse x:Name="GameBall" 
+              Fill="GreenYellow" 
+              Canvas.Top="200" 
+              Width="30" 
+              Height="30" 
+              Canvas.Left="360" />
+
+            <TextBlock x:Name="CoinCount1"
+                Canvas.Left="40" 
+                Canvas.Bottom="0" 
+                Width="30"
+                Height="30"
+                Background="DarkBlue"
+                Foreground="White"
+                Text="0"
+                FontSize="20" 
+                TextAlignment="Center"/>
+
+        </Canvas>
+    </Grid>
+</Window>
